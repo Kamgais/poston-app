@@ -2,7 +2,8 @@ package com.example.postonapp.services;
 
 
 import com.example.postonapp.entities.Post;
-import com.example.postonapp.repositories.IPostRespository;
+
+import com.example.postonapp.repositories.IPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import java.util.Optional;
 public class PostService {
 
     @Autowired
-    IPostRespository postRepository;
+    IPostRepository postRepository;
 
     // get all posts
     public List<Post> getAllPost() {
