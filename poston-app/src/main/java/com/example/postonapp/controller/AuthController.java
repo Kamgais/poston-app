@@ -1,19 +1,32 @@
 package com.example.postonapp.controller;
 
 
+import com.example.postonapp.dtos.UserDto;
 import com.example.postonapp.entities.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.postonapp.services.AuthService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+
+
 
 @RestController
-@RequestMapping("auth")
+@RequiredArgsConstructor
+@RequestMapping("/api/auth")
 public class AuthController {
 
+   private final AuthService authService;
+
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> createAccount(@RequestBody UserDto userDto) {
+
+     return authService.createAUser(userDto);
+    }
 
 
-    @GetMapping("register")
-    public User createAccount(User user) {
-     return user;
+    @PostMapping("/login")
+    public ResponseEntity<UserDto> verifyAUser(@RequestBody UserDto userDto) {
+        return authService.loginAUser(userDto);
     }
 }

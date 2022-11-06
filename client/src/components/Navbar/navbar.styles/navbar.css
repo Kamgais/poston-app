@@ -1,0 +1,56 @@
+.navContainer {
+  position: fixed;
+  top: 0;
+  background: white;
+  z-index: 100;
+  width: 100vw;
+  height: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  box-shadow: 0px 0px 3px 5px rgba(255, 255, 255, 0.705);
+}
+@media (min-width: 0) {
+  .navContainer .navLogo h1 {
+    display: none;
+  }
+}
+@media (min-width: 480px) {
+  .navContainer .navLogo h1 {
+    display: block;
+    font-family: "Roboto", sans-serif;
+    font-size: 2.5rem;
+  }
+}
+.navContainer .navActions button {
+  width: 100px;
+  height: 40px;
+  border: none;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.4s ease-out;
+}
+.navContainer .navActions button:nth-child(1) {
+  color: #ffffff;
+  background-color: #327AE7;
+}
+.navContainer .navActions button:nth-child(1):hover {
+  color: #327AE7;
+  background-color: #ffffff;
+  border: 3px solid;
+  font-size: 12px;
+}
+.navContainer .navActions button:nth-child(2) {
+  margin-left: 10px;
+  color: #327AE7;
+  background: #ffffff;
+  border: 1px solid;
+}
+.navContainer .navActions button:nth-child(2):hover {
+  color: #ffffff;
+  background-color: #327AE7;
+  font-size: 12px;
+  border-color: #f1f1f1;
+}/*# sourceMappingURL=navbar.css.map */

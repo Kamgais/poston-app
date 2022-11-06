@@ -1,9 +1,12 @@
 package com.example.postonapp.services;
 
 
+import com.example.postonapp.dtos.UserDto;
 import com.example.postonapp.entities.User;
+import com.example.postonapp.mappers.UserMapper;
 import com.example.postonapp.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,26 +15,34 @@ import java.util.Optional;
 public class AuthService {
 
     @Autowired
-    IUserRepository userRepository;
+  private  IUserRepository userRepository;
+
+    UserMapper userMapper = new UserMapper();
+
+
 
 
     /*
     * create a account
      */
-    public User createAUser(User user) {
-        User newUser = null;
-        if (emailExist(user.getEmailAddress())) {
-            return null;
+    public ResponseEntity<UserDto> createAUser(UserDto userDto) {
+
+        User newUser = userMapper.toEntity(userDto);
+        if (emailExist(userDto.getEmailAddress())) {
+            return ResponseEntity.badRequest().build();
         }
 
-        newUser = null;
-        try {
+        if(userDto.getPassword().length() < 8) {
+           return ResponseEntity.badRequest().build();
+        }
 
-            newUser = userRepository.save(user);
+        try {
+            userRepository.save(newUser);
+
         } catch (Error error) {
             System.out.println(error);
         }
-        return newUser;
+        return  ResponseEntity.ok().body(userMapper.toDto(newUser));
     }
 
     /*
@@ -50,18 +61,20 @@ public class AuthService {
     /*
     * login email
      */
-    public User loginAUser(User user) {
-        User fetchUser = userRepository.findUserByEmailAddress(user.getEmailAddress());
-        if(fetchUser != null) {
-            String fetchPasswort = fetchUser.getPassword();
-            if(fetchPasswort == user.getPassword()) {
-                return fetchUser;
-            } else {
-                return null;
-            }
+    public ResponseEntity<UserDto> loginAUser(UserDto userDto) {
+        User fetchUser = userRepository.findUserByEmailAddress(userDto.getEmailAddress());
+        if(fetchUser == null) {
+            return ResponseEntity.badRequest().build();
+        } else if(!fetchUser.getPassword().equals(userDto.getPassword())) {
+          return ResponseEntity.badRequest().build();
         } else {
-            return null;
+            UserDto loggedUser = userMapper.toDto(fetchUser);
+            return ResponseEntity.ok().body(loggedUser);
         }
     }
+
+
+
+
 
 }

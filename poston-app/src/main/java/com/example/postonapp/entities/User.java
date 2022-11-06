@@ -3,12 +3,15 @@ package com.example.postonapp.entities;
 
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Builder
 @Table(name = "user")
 @Data
 @AllArgsConstructor
@@ -28,4 +31,7 @@ public class User {
 
     @Column
     private String password;
+
+
+
 }

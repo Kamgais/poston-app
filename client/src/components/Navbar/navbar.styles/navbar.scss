@@ -1,0 +1,80 @@
+@import '../../../styles/fonts';
+@import '../../../styles/colors';
+@import '../../../styles/breakpoints';
+.navContainer{
+
+  
+
+    position: fixed;
+    top: 0;
+    background: #ffff;
+    z-index: 100;
+    width: 100vw;
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    box-shadow: 0px 0px 3px 5px rgba(255, 255, 255, 0.705);
+
+    
+    
+
+
+    .navLogo h1 {
+
+        @include xs{
+         display: none;
+        }
+
+        @include sm {
+        display: block;
+        font-family: $family;
+        font-size: 2.5rem;
+        }
+        
+        
+    }
+
+
+    .navActions button{
+      width: 100px;
+      height: 40px;
+      border: none;
+      font-size: 18px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.4s ease-out;
+
+
+      &:nth-child(1) {
+        color: $base-white-color;
+        background-color: $button-color;
+
+        &:hover{
+            color: $button-color;
+            background-color: $base-white-color;
+            border: 3px solid ;
+            font-size: 12px;
+        }
+      }
+
+
+      &:nth-child(2) {
+        margin-left: 10px;
+        color: $button-color;
+        background: $base-white-color;
+        border: 1px solid ;
+
+
+
+        &:hover{
+            color: $base-white-color;
+            background-color: $button-color;
+            font-size: 12px;
+            border-color: #f1f1f1;
+        }
+
+      }
+    }
+}
