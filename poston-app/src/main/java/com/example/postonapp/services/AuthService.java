@@ -32,7 +32,7 @@ public class AuthService {
             return ResponseEntity.badRequest().build();
         }
 
-        if(userDto.getPassword().length() < 8) {
+        if(userDto.getPassword().length() < 6) {
            return ResponseEntity.badRequest().build();
         }
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/posts")
 public class PostController {
 
@@ -30,6 +31,17 @@ public class PostController {
     @PutMapping("/{id}")
     public ResponseEntity<PostDto> updatePost(@PathVariable Long id , @RequestBody PostDto postDto) {
         return postService.updatePost(id,postDto);
+    }
+
+
+    @GetMapping("/like/{id}/{value}")
+    public ResponseEntity<String> likePost (@PathVariable Long value, @PathVariable Long id) {
+        return postService.likePost(value, id);
+    }
+
+    @GetMapping("/unlike/{id}/{value}")
+    public ResponseEntity<String> unLikePost (@PathVariable Long value, @PathVariable Long id) {
+        return postService.unLikePost(value, id);
     }
 
     @PostMapping("")

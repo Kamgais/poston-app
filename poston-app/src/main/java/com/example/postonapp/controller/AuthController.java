@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 
 
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequiredArgsConstructor
+
 @RequestMapping("/api/auth")
 public class AuthController {
 

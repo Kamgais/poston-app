@@ -8,6 +8,7 @@
   min-height: max-content;
   display: flex;
   align-items: center;
+  margin-top: 100px;
 }
 @media (min-width: 0) {
   .formContainer {
@@ -23,7 +24,21 @@
   margin: 30px 0;
 }
 .formContainer .formContainerIcon {
+  width: 50%;
+}
+.formContainer .formContainerIcon img {
   font-size: 150px;
+}
+@media (min-width: 0) {
+  .formContainer .formContainerIcon img {
+    display: none;
+  }
+}
+@media (min-width: 480px) {
+  .formContainer .formContainerIcon img {
+    width: 100%;
+    display: block;
+  }
 }
 .formContainer .formContainerForm {
   display: flex;

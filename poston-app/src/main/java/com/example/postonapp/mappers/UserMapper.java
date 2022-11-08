@@ -1,10 +1,10 @@
 package com.example.postonapp.mappers;
 
-import com.example.postonapp.dtos.Dto;
+
 import com.example.postonapp.dtos.UserDto;
 import com.example.postonapp.entities.User;
 
-import java.util.Optional;
+
 
 public class UserMapper implements Mapper<User,UserDto> {
 

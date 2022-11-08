@@ -64,6 +64,7 @@ public class PostService {
             newPost.setPostImage(updatedPost.getPostImage());
             newPost.setDateCreated(updatedPost.getDateCreated());
             newPost.setLikeCount(updatedPost.getLikeCount());
+            newPost.setUnlikeCount(updatedPost.getUnlikeCount());
 
 
             return ResponseEntity.ok().body(postMapper.toDto(postRepository.save(newPost)));
@@ -90,6 +91,36 @@ public class PostService {
         }
         message = "no post found with this id";
         return ResponseEntity.ok().body(message);
+    }
+
+
+    public ResponseEntity<String> likePost( Long likeCounter, Long id) {
+        String message;
+        Optional<Post> post = postRepository.findById(id);
+        if(post.isPresent()) {
+            post.get().setLikeCount(post.get().getLikeCount() + likeCounter);
+            postRepository.save(post.get());
+            return ResponseEntity.ok().body("post gelikt");
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+
+
+    }
+
+
+    public ResponseEntity<String> unLikePost(Long unlikeCounter, Long id) {
+        String message;
+        Optional<Post> post = postRepository.findById(id);
+
+        if(post.isPresent()) {
+            post.get().setUnlikeCount(post.get().getUnlikeCount() + unlikeCounter);
+            postRepository.save(post.get());
+            return ResponseEntity.ok().body("post ungelikt");
+
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     public List<Post> getPostByCategoryName(String categoryName) {

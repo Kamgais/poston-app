@@ -28,7 +28,8 @@ public class Post {
     private String content;
     private String postImage;
     private Date dateCreated;
-    private int likeCount;
+    private Long likeCount;
+    private Long unlikeCount;
 
 
     @ManyToMany(fetch = EAGER)
@@ -37,6 +38,5 @@ public class Post {
     @ManyToOne
     private User user;
 
-    @OneToOne
-    private LikeCounter likeCounter;
+
 }

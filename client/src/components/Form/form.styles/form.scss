@@ -19,6 +19,7 @@
     min-height: max-content;
     display: flex;
     align-items: center;
+    margin-top: 100px;
     
 
     
@@ -29,8 +30,23 @@
         
       }
 
-    .formContainerIcon {
+      .formContainerIcon{
+        width: 50%;
+      }
+
+    .formContainerIcon img {
      font-size: 150px;
+
+     @include xs {
+        display: none;
+     }
+
+     @include sm {
+        width: 100%;
+        display: block;
+     }
+
+     
 
     }
 
