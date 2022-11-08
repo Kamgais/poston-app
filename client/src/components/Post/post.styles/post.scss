@@ -1,0 +1,145 @@
+@import '../../../styles/fonts';
+@import '../../../styles/breakpoints';
+
+.postContainer {
+
+    @include xs {
+        width: 100%;
+    }
+
+    @include breakpoint(635px) {
+        min-width: 280px;
+        max-width: 400px;
+        width: 30%;
+    }
+     position: relative;
+    
+    height:400px;
+   border: 3px solid;
+    overflow: hidden;
+    cursor: pointer;
+
+
+    &:hover .postInfosContainer{
+        bottom: 0;
+    }
+
+
+   &:hover>img {
+    transform: scale(1.2);
+   }
+
+
+   .categoriesLabels{
+    position: absolute;
+    z-index: 100;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    justify-content: start;
+
+
+      div{
+        background: rgb(4, 179, 170);
+        color: #ffff;
+        width: 100px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Roboto';
+        text-align: center;
+      }
+   }
+
+
+
+
+
+    .postInfosContainer{
+        background: rgba(255, 255, 255, 0.589);
+        position: absolute;
+        width: 100%;
+        bottom: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: all 0.5s ease-out;
+
+
+       
+    }
+
+    .postTitle{
+        text-align: center;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        font-size: 20px;
+        font-family: $family;
+    }
+
+
+
+    .postNumerics{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 10px;
+        font-family: $family;
+        font-weight: bold;
+    }
+
+
+    &:nth-last-child(1) {
+        justify-self: flex-start;
+    }
+
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.5s ease-out;
+        
+
+      }
+
+      
+      .likes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+      }
+    .likes img {
+        width: 30px;
+    }
+
+
+    .unlikes{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+    }
+
+    .unlikes img {
+        width: 30px;
+    }
+
+
+    .comments {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+    }
+
+    .comments img{
+        width: 30px;
+    }
+}

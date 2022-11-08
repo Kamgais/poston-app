@@ -1,0 +1,39 @@
+@import '../../../styles/fonts';
+
+
+
+
+.notificationContainer{
+    position: fixed;
+    top: -150px;
+    right: 50%;
+    transform: translateX(50%);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-family: $family;
+    padding: 20px;
+    gap: 50px;
+    width: max-content;
+    min-width: 200px;
+    background: red;
+    height: 80px;
+    z-index: 10000;
+    transition: top 1s ease-out;
+
+
+
+
+    .iconContainer{
+        flex: 1;
+        text-align: center;
+        font-size: 25px;
+       
+    }
+
+    .messageContainer{
+        flex: 1;
+        font-size: 25px;
+        white-space: nowrap;
+    }
+}

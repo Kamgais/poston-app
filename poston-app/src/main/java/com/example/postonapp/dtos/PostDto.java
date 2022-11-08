@@ -21,7 +21,8 @@ public class PostDto {
     private String content;
     private String postImage;
     private Date dateCreated;
-    private int likeCount;
+    private Long likeCount;
+    private Long unlikeCount;
 
     private UserDto userDto;
     private List<CategoryDto> categories;
