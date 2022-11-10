@@ -8,6 +8,7 @@ import Notification from './components/Notification/Notification';
 import { notificationContext } from './context/NotificationContext';
 import { INotificationContext } from './context/NotificationContext';
 import Posts from './pages/Posts/Posts';
+import Footer from './components/Footer/Footer';
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
      <Navbar/>
      <Notification  type={notification!.type} msg={notification!.msg}/>
     </header>
-    <main>
+    <main style={{marginBottom: '100px'}}>
       <Routes>
         <Route path='/signup' element = {<RegisterPage/>}/>
         <Route path='/login' element = {<LoginPage/>}/>
@@ -26,6 +27,9 @@ function App() {
         <Route path='*' element={<Navigate to='/login'/>}/>
       </Routes>
     </main>
+    <footer>
+      <Footer/>
+    </footer>
     </>
   );
 }

@@ -1,7 +1,12 @@
-.postListContainer {
+.postList {
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
-  margin-top: 200px;
   width: 90vw;
+  margin-top: 90px;
+}
+
+.postListContainer {
   display: flex;
   justify-content: center;
   gap: 10px;

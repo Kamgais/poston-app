@@ -15,6 +15,7 @@ public class CategoryMapper implements Mapper<Category, CategoryDto>{
         }
         return Category.builder()
                 .categoryName(categoryDto.getCategoryName())
+                .categoryIcon(categoryDto.getCategoryIcon())
                 .build();
     }
 
@@ -27,6 +28,7 @@ public class CategoryMapper implements Mapper<Category, CategoryDto>{
         return CategoryDto.builder()
                 .id(category.getId())
                 .categoryName(category.getCategoryName())
+                .categoryIcon(category.getCategoryIcon())
                 .build();
     }
 }

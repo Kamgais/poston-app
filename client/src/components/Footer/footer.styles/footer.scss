@@ -1,0 +1,22 @@
+@import '../../../styles/fonts';
+.footerContainer{
+    margin-top: auto;
+    margin-bottom: 25px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-family: $family;
+
+
+
+    .footerBar{
+        width: 50%;
+        height: 3px;
+        background: black;
+    }
+
+}

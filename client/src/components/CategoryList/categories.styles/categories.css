@@ -1,0 +1,10 @@
+.categoryList {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  gap: 40px;
+  justify-content: space-around;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 20px;
+}/*# sourceMappingURL=categories.css.map */
