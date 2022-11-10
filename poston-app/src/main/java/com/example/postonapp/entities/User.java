@@ -32,6 +32,9 @@ public class User {
     @Column
     private String password;
 
+    @Column(name = "profile_pic")
+    private String profilePic;
+
 
 
 }

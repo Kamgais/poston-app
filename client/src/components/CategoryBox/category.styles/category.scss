@@ -1,0 +1,26 @@
+
+
+.categoryBox{
+    display: flex;
+    flex-basis: 100%;
+    max-width: 150px;
+    flex-direction: column;
+    align-items: center;
+   padding: 10px 20px;
+    color: #ffff;
+    font-weight: bold;
+    transition: all 0.4s ease-out;
+    
+      
+    &:hover{
+        cursor:pointer;
+        opacity: 0.3;
+        
+    }
+
+
+
+    i{
+        font-size: 30px;
+    }
+}

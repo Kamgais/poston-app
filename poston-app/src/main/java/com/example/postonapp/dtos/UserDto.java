@@ -20,5 +20,6 @@ public class UserDto {
     private String username;
     private String emailAddress;
     private String password;
+    private String profilePic;
 
 }

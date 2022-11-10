@@ -18,6 +18,7 @@ public class UserMapper implements Mapper<User,UserDto> {
                 .username(userDto.getUsername())
                 .emailAddress(userDto.getEmailAddress())
                 .password(userDto.getPassword())
+                .profilePic(userDto.getProfilePic())
                 .build();
     }
 
@@ -35,6 +36,7 @@ public class UserMapper implements Mapper<User,UserDto> {
                 .id(user.getId())
                 .username(user.getUsername())
                 .emailAddress(user.getEmailAddress())
+                .profilePic(user.getProfilePic())
                 .build();
     }
 }

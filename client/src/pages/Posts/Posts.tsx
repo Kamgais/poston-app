@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { getAllPosts } from '../../redux/actions/posts.actions';
 import Post from '../../components/Post/Post'
 import './posts.styles/posts.css';
+import CategoryList from '../../components/CategoryList/CategoryList';
 
 
 const Posts:FunctionComponent = () => {
@@ -12,10 +13,15 @@ const Posts:FunctionComponent = () => {
     useEffect(() => {
      dispatch(getAllPosts())
      console.log(posts)
-    },[posts])
+    },[])
   return (
+
+    
+      <div className='postList'>
+        <CategoryList/>
     <div className='postListContainer'>
-        {
+        
+        { posts.length !== 0 &&
             posts.map((post: any,index: any) => 
                 <Post  key={index} post = {post} />
             )
@@ -24,7 +30,9 @@ const Posts:FunctionComponent = () => {
    
      
     </div>
+    </div>
+    
   )
 }
 
-export default Posts
+export default Posts;

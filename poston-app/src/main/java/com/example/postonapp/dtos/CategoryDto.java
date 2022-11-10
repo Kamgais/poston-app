@@ -13,5 +13,6 @@ public class CategoryDto {
     private Long id;
 
     private String categoryName;
+    private String categoryIcon;
 
 }
