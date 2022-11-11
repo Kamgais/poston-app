@@ -9,13 +9,14 @@ import { notificationContext } from './context/NotificationContext';
 import { INotificationContext } from './context/NotificationContext';
 import Posts from './pages/Posts/Posts';
 import Footer from './components/Footer/Footer';
+import SinglePost from './pages/SinglePost/SinglePost';
 
 function App() {
 
   const {notification, handleNotification} = useContext<INotificationContext>(notificationContext);
   return (
-    <>
-    <header className="App">
+    <div className="App">
+    <header >
      <Navbar/>
      <Notification  type={notification!.type} msg={notification!.msg}/>
     </header>
@@ -24,13 +25,14 @@ function App() {
         <Route path='/signup' element = {<RegisterPage/>}/>
         <Route path='/login' element = {<LoginPage/>}/>
         <Route path='/posts' element={<Posts/>}/>
+        <Route path='/posts/:id' element={<SinglePost/>}/>
         <Route path='*' element={<Navigate to='/login'/>}/>
       </Routes>
     </main>
-    <footer>
+    <footer className='footer'>
       <Footer/>
     </footer>
-    </>
+    </div>
   );
 }
 

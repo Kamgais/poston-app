@@ -23,7 +23,9 @@
 
 
     .search-bar{
+      position: relative;
       width: 30%;
+      min-width: 700px;
       height: 80%;
       display: flex;
       justify-content: space-around;

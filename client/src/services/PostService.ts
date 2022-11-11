@@ -5,9 +5,15 @@ import { BASE_URL } from "../api/url";
 
 export class PostService {
 
-    static async getAllPosts():Promise<PostDto|null> {
+    static async getAllPosts(title?:string):Promise<PostDto[]|null> {
         try {
-            const response = await axios.get(`${BASE_URL}/posts`)
+            let response;
+            if(title) {
+                response = await axios.get(`${BASE_URL}/posts?title=${title}`)
+            } else {
+                response = await axios.get(`${BASE_URL}/posts`)
+            }
+           
             return response.data;
         } catch (error) {
             console.log(error)
@@ -35,6 +41,16 @@ export class PostService {
         } catch (error) {
           console.log(error);
           return null;  
+        }
+    }
+
+    static async getPostByCategoryName(categoryName: String):Promise<PostDto[]|null> {
+        try {
+            const response = await axios.get(`${BASE_URL}/posts/categories?categoryName=${categoryName}`);
+            return response.data;
+        } catch (error) {
+          console.log(error);
+          return null; 
         }
     }
 }

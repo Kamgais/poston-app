@@ -1,4 +1,7 @@
-import React, {FunctionComponent, useEffect, useState} from 'react'
+import React, {Dispatch, FunctionComponent, useEffect, useState} from 'react'
+import { useDispatch } from 'react-redux';
+import { getPostByCategoryName } from '../../redux/actions/posts.actions';
+
 import { CategoryDto } from '../../types/CategoryDto';
 import './category.styles/category.css';
 
@@ -8,7 +11,8 @@ type Props = {
 }
 
 const CategoryBox:FunctionComponent<Props> = ({category}) => {
-const [color, setColor] = useState<string>('')
+const [color, setColor] = useState<string>('');
+const dispatch = useDispatch<any>();
 
   useEffect(() => {
 
@@ -26,8 +30,16 @@ const [color, setColor] = useState<string>('')
     const styles = {
         background: color
     }
+
+
+
+    const fetchProducts = (categoryName: string) => {
+      dispatch(getPostByCategoryName(categoryName))
+      
+       
+    }
   return (
-    <div style={styles} className='categoryBox'>
+    <div style={styles} className='categoryBox'  onClick={() => fetchProducts(category.categoryName!)}>
        <i className={category.categoryIcon}></i> 
        <p>{category.categoryName?.toUpperCase()}</p>
       

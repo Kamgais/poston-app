@@ -3,17 +3,20 @@ import { PostDto } from "../types/PostDto";
 
 
 
-let INITIAL_STATE: PostDto[];
 
-if(sessionStorage.getItem('posts')) {
-    INITIAL_STATE = JSON.parse(sessionStorage.getItem('posts')!)
+let initialState: PostDto[];
+
+if( sessionStorage.getItem('posts')) {
+    initialState = JSON.parse(sessionStorage.getItem('posts')!);
 } else {
-    INITIAL_STATE = []
+    initialState = [];
 }
+
+   
 
 export const postSlice = createSlice({
     name: 'posts',
-    initialState: INITIAL_STATE,
+    initialState: initialState,
 
     reducers: {
         addPost: (state,action) => {
@@ -33,8 +36,10 @@ export const postSlice = createSlice({
         },
 
         getPosts: (state,action) => {
-            state = action.payload;
+            state = action.payload.map((post:any) => post);
             sessionStorage.setItem('posts', JSON.stringify(state))
+             return state;
+           
         },
 
         addLike: (state,action) => {
@@ -49,6 +54,8 @@ export const postSlice = createSlice({
             state[index].unlikeCount = state[index].unlikeCount + action.payload.unLikeCounter;
             sessionStorage.setItem('posts', JSON.stringify(state)) ;
         }
+
+    
 
     }
 })

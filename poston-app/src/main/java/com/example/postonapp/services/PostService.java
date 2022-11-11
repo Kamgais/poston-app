@@ -123,11 +123,20 @@ public class PostService {
         }
     }
 
-    public List<Post> getPostByCategoryName(String categoryName) {
+    public ResponseEntity<List<PostDto>> getPostByCategoryName(String categoryName) {
         Category category =  categoryRepository.findCategoryByCategoryName(categoryName);
-        return new ArrayList<Post>();
+        List<Post> posts = (List<Post>) postRepository.findAll();
+        List<Post> foundPosts = posts.stream().filter(e-> e.getCategories().contains(category)).collect(Collectors.toList());
+        List<PostDto> foundPostDtos = foundPosts.stream().map(e -> postMapper.toDto(e)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(foundPostDtos);
 
 
+    }
+
+
+    public ResponseEntity<List<PostDto>> getPostByTitle(String postTitle) {
+       List<Post> posts = postRepository.findPostByTitle(postTitle);
+        return ResponseEntity.ok().body(posts.stream().limit(8).map(e-> postMapper.toDto(e)).collect(Collectors.toList()));
     }
 
 }

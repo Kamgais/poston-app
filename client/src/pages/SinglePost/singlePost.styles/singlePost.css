@@ -1,0 +1,65 @@
+.singlePostContainer {
+  margin: 0 auto;
+  margin-top: 100px;
+  width: 80vw;
+}
+.singlePostContainer img {
+  width: 100px;
+}
+.singlePostContainer .singlePostImage {
+  width: 100%;
+  position: relative;
+}
+.singlePostContainer .singlePostImage img {
+  width: 100%;
+  height: 650px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.singlePostContainer .singlePostInfos {
+  margin: 20px;
+}
+.singlePostContainer .singlePostInfos h1 {
+  font-size: 70px;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+}
+.singlePostContainer .singlePostInfos .postContent {
+  font-size: 20px;
+  margin: 30px;
+  font-family: "Roboto", sans-serif;
+}
+.singlePostContainer .singlePostInfos .postActions {
+  display: flex;
+  gap: 10px;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  align-items: center;
+  justify-content: start;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.singlePostContainer .singlePostInfos .postActions .like, .singlePostContainer .singlePostInfos .postActions .unlike, .singlePostContainer .singlePostInfos .postActions .comment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  font-size: 20px;
+  font-family: "Roboto", sans-serif;
+}
+.singlePostContainer .singlePostInfos .postActions img {
+  width: 50px;
+}
+.singlePostContainer .singlePostComments {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.singlePostContainer .singlePostComments input {
+  width: 80%;
+  height: 50px;
+  margin: 20px;
+  padding: 0 10px;
+  font-size: 20px;
+}/*# sourceMappingURL=singlePost.css.map */
