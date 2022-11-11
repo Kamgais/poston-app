@@ -12,16 +12,20 @@ const Posts:FunctionComponent = () => {
     const dispatch:Dispatch<(dispatch:any) => void> = useDispatch<any>();
     useEffect(() => {
      dispatch(getAllPosts())
-     console.log(posts)
+     console.log(posts);
     },[])
-  return (
+ 
+ 
+ 
+ 
+    return (
 
     
       <div className='postList'>
         <CategoryList/>
     <div className='postListContainer'>
         
-        { posts.length !== 0 &&
+        {
             posts.map((post: any,index: any) => 
                 <Post  key={index} post = {post} />
             )

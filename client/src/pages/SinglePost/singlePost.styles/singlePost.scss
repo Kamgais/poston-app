@@ -1,0 +1,92 @@
+@import '../../../styles/fonts';
+
+.singlePostContainer{
+    img{
+        width: 100px;
+    }
+    margin: 0 auto;
+    margin-top: 100px;
+    width: 80vw;
+
+
+
+    .singlePostImage{
+        width: 100%;
+        position: relative;
+
+        img{
+            width: 100%;
+            height: 650px;
+            object-fit: cover;
+        }
+    }
+
+
+    .singlePostInfos{
+        
+        margin: 20px;
+
+        h1{
+            font-size: 70px;
+            font-family: $family;
+            text-align: center;
+        }
+
+
+        .postContent{
+            font-size: 20px;
+            margin: 30px;
+            font-family: $family;
+        }
+
+
+        .postActions{
+            display: flex;
+            gap: 10px;
+            height: min-content;
+            align-items: center;
+            justify-content: start;
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+
+            .like, .unlike, .comment {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+                font-size: 20px;
+                font-family: $family;
+            }
+
+            img{
+                width: 50px;
+                
+            }
+        }
+    }
+
+
+
+    .singlePostComments{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+        input {
+            width: 80%;
+            height: 50px;
+            margin: 20px;
+            padding: 0 10px;
+            font-size: 20px;
+        }
+    }
+
+
+
+    
+
+
+   
+}

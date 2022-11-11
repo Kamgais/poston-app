@@ -19,8 +19,13 @@ public class PostController {
     PostService postService;
 
     @GetMapping("")
-    public ResponseEntity<List<PostDto>> findAllPost() {
-        return postService.getAllPost();
+    public ResponseEntity<List<PostDto>> findAllPost(@RequestParam(required = false) String title) {
+        if(title != null) {
+          return postService.getPostByTitle(title);
+        } else {
+            return postService.getAllPost();
+        }
+
     }
 
     @GetMapping("/{id}")
@@ -43,6 +48,12 @@ public class PostController {
     public ResponseEntity<String> unLikePost (@PathVariable Long value, @PathVariable Long id) {
         return postService.unLikePost(value, id);
     }
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<PostDto>> getPostByCategoryName(@RequestParam String categoryName) {
+        return postService.getPostByCategoryName(categoryName);
+    }
+
 
     @PostMapping("")
     public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {

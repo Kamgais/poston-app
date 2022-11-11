@@ -1,11 +1,26 @@
-import React, {FunctionComponent} from 'react'
+import React, {FunctionComponent, useState} from 'react'
 import {useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
+import SearchResults from '../SearchResults/SearchResults';
 import './navbar.styles/navbar.css';
 
 const Navbar:FunctionComponent = () => {
   const navigate = useNavigate();
   const {user, logged} = useSelector((state:any) => state.auth)
+  const [inputValue,setInputValue] = useState<string>("");
+  const [visible, setVisible] = useState<boolean>(false);
+
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if(e.target.value !== '') {
+      setInputValue(e.target.value);
+      setVisible(true)
+    } else {
+      setVisible(false)
+    }
+    
+
+  }
  
 
   const navigateToLogin = () => {
@@ -33,8 +48,9 @@ const Navbar:FunctionComponent = () => {
             ) : (
               <>
               <div className="search-bar">
-              <input  className='search-bar-input' type="text" />
-              <button className='search-bar-button'>Search</button>
+              <input  className='search-bar-input' type="text" onChange={(e) => handleChange(e)} />
+              { visible && <SearchResults  title={inputValue.toLowerCase()}/>}
+              
               </div>
 
               <div className="user-infos">

@@ -18,6 +18,7 @@ const CategoryList:FunctionComponent = () => {
     },[])
   return (
     <div className='categoryList'>
+      
         {
             categories?.map((category, index) => (
                 <CategoryBox key={index}   category = {category}/>

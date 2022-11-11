@@ -5,10 +5,22 @@ import {getPosts, addLike, addDislike} from '../postSlice';
 export const getAllPosts = () => async(dispatch:any) => {
     try {
         const response = await PostService.getAllPosts();
+        console.log(response)
         dispatch(getPosts(response));
     } catch (error) {
         console.log(error)
        return null; 
+    }
+}
+
+
+export const getPostByCategoryName = (categoryName: String) => async(dispatch:any) => {
+    try {
+        const response = await PostService.getPostByCategoryName(categoryName);
+        dispatch(getPosts(response))
+    } catch (error) {
+        console.log(error);
+        return null;
     }
 }
 
