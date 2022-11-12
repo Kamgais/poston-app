@@ -23,7 +23,6 @@ public class PostDto {
     private Date dateCreated;
     private Long likeCount;
     private Long unlikeCount;
-
     private UserDto userDto;
     private List<CategoryDto> categories;
 

@@ -2,16 +2,13 @@ package com.example.postonapp.mappers;
 
 import com.example.postonapp.dtos.PostDto;
 import com.example.postonapp.entities.Category;
+import com.example.postonapp.entities.Comment;
 import com.example.postonapp.entities.Post;
 import com.example.postonapp.entities.User;
 import com.example.postonapp.repositories.ICategoryRepository;
 import com.example.postonapp.repositories.IUserRepository;
-import com.example.postonapp.services.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,6 +25,8 @@ public class PostMapper implements  Mapper<Post, PostDto>{
 
     CategoryMapper categoryMapper = new CategoryMapper();
     UserMapper userMapper = new UserMapper();
+
+    CommentMapper commentMapper = new CommentMapper();
 
 
    private final ICategoryRepository categoryRepository;
@@ -56,6 +55,7 @@ public class PostMapper implements  Mapper<Post, PostDto>{
     @Override
     public PostDto toDto(Post post) {
         List<Category> categories = post.getCategories();
+
        if(post == null) {
            return null;
        }
