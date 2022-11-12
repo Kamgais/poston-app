@@ -3,9 +3,10 @@ package com.example.postonapp.mappers;
 
 import com.example.postonapp.dtos.UserDto;
 import com.example.postonapp.entities.User;
+import org.springframework.stereotype.Service;
 
 
-
+@Service
 public class UserMapper implements Mapper<User,UserDto> {
 
     @Override
