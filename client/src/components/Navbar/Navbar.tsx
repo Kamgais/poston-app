@@ -1,6 +1,7 @@
 import React, {FunctionComponent, useState} from 'react'
 import {useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
+import Banner from '../Banner/Banner';
 import SearchResults from '../SearchResults/SearchResults';
 import './navbar.styles/navbar.css';
 
@@ -9,6 +10,7 @@ const Navbar:FunctionComponent = () => {
   const {user, logged} = useSelector((state:any) => state.auth)
   const [inputValue,setInputValue] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(false);
+  const [bannerOpened, setBannerOpened] = useState<boolean>(false);
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,6 +22,11 @@ const Navbar:FunctionComponent = () => {
     }
     
 
+  }
+
+
+  const handleBanner = () => {
+    setBannerOpened(!bannerOpened)
   }
  
 
@@ -55,8 +62,9 @@ const Navbar:FunctionComponent = () => {
 
               <div className="user-infos">
               <i className="fa-solid fa-bell"></i>
-                <div className="user-pic">
-                  <img src={user.profilePic} alt="" />
+                <div onClick={handleBanner} className="user-pic">
+                  <img  src={user.profilePic} alt="" />
+                  {bannerOpened && <Banner/>}
                 </div>
               </div>
              

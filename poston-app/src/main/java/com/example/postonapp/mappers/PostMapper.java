@@ -1,11 +1,9 @@
 package com.example.postonapp.mappers;
 
 import com.example.postonapp.dtos.PostDto;
-import com.example.postonapp.entities.Category;
-import com.example.postonapp.entities.Comment;
-import com.example.postonapp.entities.Post;
-import com.example.postonapp.entities.User;
+import com.example.postonapp.entities.*;
 import com.example.postonapp.repositories.ICategoryRepository;
+import com.example.postonapp.repositories.IImageRepository;
 import com.example.postonapp.repositories.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,19 +20,24 @@ public class PostMapper implements  Mapper<Post, PostDto>{
 
 
    private final IUserRepository userRepository;
+    private final ICategoryRepository categoryRepository;
+    private final IImageRepository imageRepository;
 
     CategoryMapper categoryMapper = new CategoryMapper();
     UserMapper userMapper = new UserMapper();
+    ImageMapper imageMapper = new ImageMapper();
 
-    CommentMapper commentMapper = new CommentMapper();
 
 
-   private final ICategoryRepository categoryRepository;
+
+
 
 
     @Override
     public Post toEntity(PostDto postDto) {
-        Optional<User> user = userRepository.findById(postDto.getUserDto().getId());
+        Optional<User> user = userRepository.findById(postDto.getUser().getId());
+        Optional<Image> image = imageRepository.findById(postDto.getImage().getId());
+
 
 
         if(postDto == null) {
@@ -48,6 +51,7 @@ public class PostMapper implements  Mapper<Post, PostDto>{
                 .unlikeCount(postDto.getUnlikeCount())
                 .dateCreated(postDto.getDateCreated())
                 .user(user.get())
+                .image(image.get())
                 .categories(postDto.getCategories().stream().map(e -> categoryRepository.findCategoryByCategoryName(e.getCategoryName())).collect(Collectors.toList()))
                 .build();
     }
@@ -67,7 +71,8 @@ public class PostMapper implements  Mapper<Post, PostDto>{
                .likeCount(post.getLikeCount())
                .unlikeCount(post.getUnlikeCount())
                .dateCreated(post.getDateCreated())
-               .userDto(userMapper.toDto(post.getUser()))
+               .user(userMapper.toDto(post.getUser()))
+               .image(imageMapper.toDto(post.getImage()))
                .categories(post.getCategories().stream().map(e -> categoryMapper.toDto(e)).collect(Collectors.toList()))
                .build();
     }

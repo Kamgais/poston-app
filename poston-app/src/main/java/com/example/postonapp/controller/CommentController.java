@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/comments")
 public class CommentController {
 
@@ -19,7 +20,7 @@ public class CommentController {
 
 
     @PostMapping("")
-    public ResponseEntity<CommentDto> saveComment(CommentDto commentDto) {
+    public ResponseEntity<CommentDto> saveComment(@RequestBody CommentDto commentDto) {
         return commentService.saveComment(commentDto);
     }
 

@@ -10,6 +10,7 @@ import { INotificationContext } from './context/NotificationContext';
 import Posts from './pages/Posts/Posts';
 import Footer from './components/Footer/Footer';
 import SinglePost from './pages/SinglePost/SinglePost';
+import CreatePost from './pages/CreatePost/CreatePost';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Route path='/login' element = {<LoginPage/>}/>
         <Route path='/posts' element={<Posts/>}/>
         <Route path='/posts/:id' element={<SinglePost/>}/>
+        <Route path='/posts/add' element={<CreatePost/>}/>
         <Route path='*' element={<Navigate to='/login'/>}/>
       </Routes>
     </main>

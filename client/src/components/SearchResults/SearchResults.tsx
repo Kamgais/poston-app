@@ -32,8 +32,8 @@ const SearchResults:FunctionComponent<Props> = ({title}) => {
         <div className='resultContainer'>
 
         {
-            posts?.map((post:any) => (
-                <div className="resultElement">
+            posts?.map((post:any, index) => (
+                <div key={index} className="resultElement">
                 <p>{post.title}</p>
             </div>
             ))

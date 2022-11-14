@@ -22,6 +22,17 @@ export class PostService {
     }
 
 
+    static async savePost(post: PostDto|null): Promise<PostDto|null> {
+        try {
+            const response = await axios.post(`${BASE_URL}/posts`, post)
+            return response.data;
+        } catch (error) {
+         console.log(error);
+         return null;   
+        }
+    }
+
+
 
     static async getPostById(id:number):Promise<PostDto|null> {
         try {

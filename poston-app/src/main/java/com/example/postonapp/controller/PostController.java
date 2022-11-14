@@ -40,12 +40,12 @@ public class PostController {
 
 
     @GetMapping("/like/{id}/{value}")
-    public ResponseEntity<String> likePost (@PathVariable Long value, @PathVariable Long id) {
+    public ResponseEntity<String> likePost (@PathVariable("value") Long value, @PathVariable("id") Long id) {
         return postService.likePost(value, id);
     }
 
     @GetMapping("/unlike/{id}/{value}")
-    public ResponseEntity<String> unLikePost (@PathVariable Long value, @PathVariable Long id) {
+    public ResponseEntity<String> unLikePost (@PathVariable("value") Long value, @PathVariable("id") Long id) {
         return postService.unLikePost(value, id);
     }
 
