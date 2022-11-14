@@ -131,7 +131,7 @@ const SinglePost:FunctionComponent = () => {
   return (
     <div className='singlePostContainer'>
         <div className="singlePostImage">
-         <img src={post?.postImage}/>
+         <img src={`data:image/jpeg;base64,${post?.image?.picByte}`}/>
          <div  style={{display: 'flex', justifyContent: 'space-between'}} className="author-infos">
          <p style={{fontFamily: 'Roboto'}}>Author : { post  && post?.user?.username?.toUpperCase()}</p>
          <div style={{display: 'flex' , gap: '20px', fontFamily: 'Roboto'}} className="categories">

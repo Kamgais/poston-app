@@ -61,10 +61,10 @@ public class PostService {
             Post newPost = post.get();
             newPost.setTitle(updatedPost.getTitle());
             newPost.setContent(updatedPost.getContent());
-            newPost.setPostImage(updatedPost.getPostImage());
             newPost.setDateCreated(updatedPost.getDateCreated());
             newPost.setLikeCount(updatedPost.getLikeCount());
             newPost.setUnlikeCount(updatedPost.getUnlikeCount());
+
 
 
             return ResponseEntity.ok().body(postMapper.toDto(postRepository.save(newPost)));

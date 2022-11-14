@@ -7,7 +7,6 @@ import { UserDto } from "./UserDto";
 export interface PostDto {
     id?:number,
     title?:string,
-    postImage?:string,
     dateCreated?: Date,
     content?:string,
     likeCount?:number,
