@@ -54,7 +54,7 @@ const Post:FunctionComponent<Props> = ({post}) => {
                 <div >{category.categoryName}</div>
             ))}
         </div>
-      <img src={post.postImage} alt="" />
+      <img src={`data:image/jpeg;base64,${post?.image?.picByte}`} alt="" />
       <div className="postInfosContainer">
         <div className="postTitle">
             <h3>{post.title}</h3>

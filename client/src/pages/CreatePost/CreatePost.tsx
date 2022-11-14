@@ -81,10 +81,10 @@ const CreatePost:FunctionComponent = () => {
         if(!validated.valid) {
           handleNotification('error',validated.msg);
         } else {
-            await uploadImage()
-            const newPost:PostDto = {...post, categories: selectedCategories, image: image!}
-
-            const response = await PostService.savePost(newPost);
+            await uploadImageAndCreatePost()
+            handleNotification('success', validated.msg);
+            
+           
         }
 
 
@@ -121,7 +121,7 @@ const CreatePost:FunctionComponent = () => {
     }
 
 
-    const uploadImage = async() => {
+    const uploadImageAndCreatePost = async() => {
         
             const data = new FormData();
             data.append('file',file!, Date.now()+file!.name);
@@ -131,6 +131,8 @@ const CreatePost:FunctionComponent = () => {
             setImage(response);
             const newImage = await ImageService.getImage(response?.name!)
             setImage(newImage);
+            const newPost:PostDto = {...post, categories: selectedCategories, image: newImage!}
+            const postResponse = await PostService.savePost(newPost);
             
        
         

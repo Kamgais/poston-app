@@ -19,7 +19,6 @@ public class PostDto {
 
     private String title;
     private String content;
-    private String postImage;
     private Date dateCreated;
     private Long likeCount;
     private Long unlikeCount;
