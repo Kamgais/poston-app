@@ -37,7 +37,7 @@ export const likePost = (id:number, likeIndex:number) => async(dispatch:any) => 
 
 export const unLikePost = (id:number, unLikeIndex:number) => async(dispatch:any) => {
     try {
-        const response = await PostService.likePost(id, unLikeIndex);
+        const response = await PostService.unLikePost(id, unLikeIndex);
         dispatch(addDislike({id, unLikeCounter: unLikeIndex}))
     } catch (error) {
       console.log(error);

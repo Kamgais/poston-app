@@ -2,15 +2,28 @@ package com.example.postonapp.mappers;
 
 import com.example.postonapp.dtos.CommentDto;
 import com.example.postonapp.entities.Comment;
+import com.example.postonapp.entities.Post;
+import com.example.postonapp.entities.User;
+import com.example.postonapp.repositories.IPostRepository;
+import com.example.postonapp.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
-public class CommentMapper implements Mapper<Comment, CommentDto>{
+public class CommentMapper implements Mapper<Comment, CommentDto> {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private IUserRepository userRepository;
+
+
+    @Autowired
+    private IPostRepository postRepository;
 
     @Autowired
     private PostMapper postMapper;
@@ -19,10 +32,13 @@ public class CommentMapper implements Mapper<Comment, CommentDto>{
         if(commentDto == null) {
             return null;
         } else {
+            Optional<User> user = userRepository.findById(commentDto.getUser().getId());
+            Optional<Post> post = postRepository.findById(commentDto.getPost().getId());
+
             return Comment.builder()
                     .message(commentDto.getMessage())
-                    .user(userMapper.toEntity(commentDto.getUser()))
-                    .post(postMapper.toEntity(commentDto.getPost()))
+                    .user(user.get())
+                    .post(post.get())
                     .build();
         }
 

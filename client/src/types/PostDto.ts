@@ -1,5 +1,6 @@
 import { CategoryDto } from "./CategoryDto";
 import { CommentDto } from "./CommentDto";
+import { ImageDto } from "./ImageDto";
 import { UserDto } from "./UserDto";
 
 
@@ -12,6 +13,7 @@ export interface PostDto {
     likeCount?:number,
     unlikeCount?:number,
     user?:UserDto,
+    image?:ImageDto,
     categories?: CategoryDto[]
    
 }

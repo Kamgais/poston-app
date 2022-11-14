@@ -37,6 +37,7 @@ const Post:FunctionComponent<Props> = ({post}) => {
             dispatch(likePost(post.id!, -1))
             dispatch(unLikePost(post.id!, 1));
             setStatus('unliked')
+            console.log('hey')
         } else if(status === 'unliked') {
         dispatch(unLikePost(post.id!, -1));
         setStatus('');

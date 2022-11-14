@@ -1,0 +1,29 @@
+.bannerContainer {
+  position: absolute;
+  bottom: -280%;
+  right: 1%;
+  width: 8%;
+  min-width: 200px;
+  padding: 10px 0px;
+  background: rgb(255, 255, 255);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 5px;
+}
+.bannerContainer .bannerMyAccount, .bannerContainer .bannerCreatePost, .bannerContainer .bannerMyPost {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.bannerContainer .bannerMyAccount:hover, .bannerContainer .bannerCreatePost:hover, .bannerContainer .bannerMyPost:hover {
+  background: #74b9ff;
+}
+.bannerContainer .bannerMyAccount i, .bannerContainer .bannerCreatePost i, .bannerContainer .bannerMyPost i {
+  font-size: 25px;
+}
+.bannerContainer .bannerMyAccount p, .bannerContainer .bannerCreatePost p, .bannerContainer .bannerMyPost p {
+  font-family: "Roboto", sans-serif;
+}/*# sourceMappingURL=banner.css.map */

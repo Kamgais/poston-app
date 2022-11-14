@@ -39,6 +39,10 @@ public class Post {
     private User user;
 
 
+    @OneToOne
+    private Image image;
+
+
 
 
 }

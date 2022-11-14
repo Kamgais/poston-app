@@ -8,6 +8,6 @@ export interface CommentDto {
     id?: string,
     message?: string,
     user?: UserDto,
-    post?: PostDto
+    post?: PostDto|null
 
 }

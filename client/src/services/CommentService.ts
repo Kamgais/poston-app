@@ -6,9 +6,9 @@ import { CommentDto } from "../types/CommentDto";
 
 export class CommentService {
 
-    static async saveComment(comment: CommentDto): Promise<CommentDto|null> {
+    static async saveComment(comment: CommentDto|null): Promise<CommentDto|null> {
         try {
-            const response = await axios.post(`${BASE_URL}/comments`)
+            const response = await axios.post(`${BASE_URL}/comments`, comment)
             return response.data;
         } catch (error) {
             console.log(error);
@@ -27,7 +27,7 @@ export class CommentService {
         }
     }
 
-    static async getComments(id:number): Promise<CommentDto[]|null> {
+    static async getComments(id:number|undefined): Promise<CommentDto[]|null> {
         try {
           const response = await axios.get(`${BASE_URL}/comments/${id}`);
           return response.data;
@@ -37,7 +37,7 @@ export class CommentService {
         }
     }
 
-    static async countComments(id:string): Promise<number|null> {
+    static async countComments(id:number): Promise<number|null> {
         try {
            const response = await  axios.get(`${BASE_URL}/comments/count/${id}`)
            return response.data;

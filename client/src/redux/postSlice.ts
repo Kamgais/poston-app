@@ -46,6 +46,7 @@ export const postSlice = createSlice({
             const index = state.findIndex((post) =>  post.id === action.payload.id);
             state[index].likeCount = state[index].likeCount + action.payload.likeCounter;
             sessionStorage.setItem('posts', JSON.stringify(state))
+            return state;
 
         },
 
@@ -53,6 +54,7 @@ export const postSlice = createSlice({
             const index = state.findIndex((post) =>  post.id === action.payload.id);
             state[index].unlikeCount = state[index].unlikeCount + action.payload.unLikeCounter;
             sessionStorage.setItem('posts', JSON.stringify(state)) ;
+            return state;
         }
 
     

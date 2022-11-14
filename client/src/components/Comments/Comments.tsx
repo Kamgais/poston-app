@@ -1,36 +1,43 @@
 import React,{FunctionComponent, useEffect, useState} from 'react'
+import { useSelector } from 'react-redux';
 import { CommentService } from '../../services/CommentService'
 import { CommentDto } from '../../types/CommentDto'
+import './comments.styles/comments.css';
 
 
 type Props = {
-    id:number
+    comments?: CommentDto[]|null,
+    delete: (id: number) => Promise<void>
 }
-const Comments:FunctionComponent<Props> = ({id}) => {
-    const [comments,setComments] = useState<CommentDto[]|null>()
+const Comments:FunctionComponent<Props> = (props) => {
+    const {user} = useSelector((state:any) => state.auth)
+    
 
-    const fetchComments = async() => {
-        const response = await CommentService.getComments(id);
-        setComments(response);
-    }
+    
+
+   
+
+
+
     useEffect(() => {
-      fetchComments();
-    },[id])
+    //  fetchComments();
+    },[])
   return (
     <>
 
     {
-        comments?.map((comment:any) => (
+        props.comments?.map((comment:any, index) => (
             
-            <div className="comment">
+            <div className="comment"  key={index}>
             <div className="commentAutor">
-            <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" />
+            <img src={comment.user.profilePic} />
             </div>
             <div className="commentContent">
-           Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-           Ipsam reprehenderit iusto, a quam maiores consequatur voluptas officia v
-           ero voluptates temporibus, quod quis! Dolor harum labore corporis? Assumenda atque consectetur velit!
+            {comment.message}
             </div>
+            { comment.user.id === user.id && <div onClick={() => props.delete(comment.id)} className="commentAction">
+            <i className="fa-solid fa-trash"></i>
+            </div>}
          </div>
         ))
     }
