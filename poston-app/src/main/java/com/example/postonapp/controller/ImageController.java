@@ -28,6 +28,6 @@ public class ImageController {
 
     @GetMapping("/{name}")
     public ResponseEntity<ImageDto> getImage(@PathVariable("name") String name) {
-        return imageService.getImage(name);
+        return  ResponseEntity.ok().body(imageService.getImage(name));
     }
 }

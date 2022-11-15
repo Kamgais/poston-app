@@ -1,11 +1,13 @@
-import React,{FunctionComponent, Dispatch, useState} from 'react'
-import {useDispatch} from 'react-redux';
+import React,{FunctionComponent, Dispatch, useState, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import { likePost,unLikePost } from '../../redux/actions/posts.actions';
 import LikeIcon from '../../assets/icons/like.svg';
 import UnLikeIcon from '../../assets/icons/dislike.svg';
 import CommentIcon from '../../assets/icons/comment.svg';
 import './post.styles/post.css';
 import { PostDto } from '../../types/PostDto';
+import { CommentService } from '../../services/CommentService';
 
 type Props = {
     post:PostDto
@@ -14,6 +16,23 @@ type Props = {
 const Post:FunctionComponent<Props> = ({post}) => {
     const dispatch: Dispatch<(dispatch: any) => Promise<null | undefined>> = useDispatch<any>();
     const [status, setStatus] = useState<string>("");
+    const [commentCount, setCommentCount] = useState<number|null>(0);
+    const navigate = useNavigate();
+   
+
+
+
+    const countComments = async() => {
+        const response = await CommentService.countComments(post.id!);
+        setCommentCount(response);
+    }
+
+
+    useEffect(() => {
+      countComments()
+    },[])
+
+   
 
 
     const addLike = () => {
@@ -54,7 +73,7 @@ const Post:FunctionComponent<Props> = ({post}) => {
                 <div >{category.categoryName}</div>
             ))}
         </div>
-      <img src={`data:image/jpeg;base64,${post?.image?.picByte}`} alt="" />
+      <img  onClick={() => navigate(`/posts/${post.id}`)} src={`data:image/jpg;base64,${post?.image?.picByte}`} alt="" />
       <div className="postInfosContainer">
         <div className="postTitle">
             <h3>{post.title}</h3>
@@ -70,7 +89,7 @@ const Post:FunctionComponent<Props> = ({post}) => {
             </div>
             <div className="comments">
             <img src={CommentIcon} alt="" />
-            <p>30</p>
+            <p>{commentCount}</p>
             </div>
         </div>
       </div>

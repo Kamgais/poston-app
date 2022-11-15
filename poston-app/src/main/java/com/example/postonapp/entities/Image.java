@@ -28,6 +28,6 @@ public class Image {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "pic_byte" , length = 1000)
+    @Column(name = "pic_byte" , length = 65555)
     private byte[] picByte;
 }

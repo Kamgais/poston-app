@@ -5,7 +5,9 @@ import com.example.postonapp.entities.*;
 import com.example.postonapp.repositories.ICategoryRepository;
 import com.example.postonapp.repositories.IImageRepository;
 import com.example.postonapp.repositories.IUserRepository;
+import com.example.postonapp.services.ImageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +30,10 @@ public class PostMapper implements  Mapper<Post, PostDto>{
     ImageMapper imageMapper = new ImageMapper();
 
 
+    @Autowired
+    private ImageService imageService;
+
+
 
 
 
@@ -37,6 +43,8 @@ public class PostMapper implements  Mapper<Post, PostDto>{
     public Post toEntity(PostDto postDto) {
         Optional<User> user = userRepository.findById(postDto.getUser().getId());
         Optional<Image> image = imageRepository.findById(postDto.getImage().getId());
+
+
 
 
 
@@ -50,7 +58,7 @@ public class PostMapper implements  Mapper<Post, PostDto>{
                 .unlikeCount(postDto.getUnlikeCount())
                 .dateCreated(postDto.getDateCreated())
                 .user(user.get())
-                .image(image.get())
+                .image(imageMapper.toEntity(postDto.getImage()))
                 .categories(postDto.getCategories().stream().map(e -> categoryRepository.findCategoryByCategoryName(e.getCategoryName())).collect(Collectors.toList()))
                 .build();
     }

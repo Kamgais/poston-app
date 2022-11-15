@@ -1,4 +1,5 @@
 import React,{FunctionComponent, useState, useEffect, useContext} from 'react'
+import { useNavigate } from 'react-router-dom';
 import { notificationContext } from '../../context/NotificationContext';
 import { useSelector } from 'react-redux';
 import { CategoryService } from '../../services/CategoryService';
@@ -18,6 +19,7 @@ type ValidField = {
 const CreatePost:FunctionComponent = () => {
     const {user} = useSelector((state:any) => state.auth)
     const {handleNotification} = useContext(notificationContext);
+    const navigate = useNavigate();
     const [categories, setCategories] = useState<CategoryDto[]|null>();
     const [selectedCategories, setSelectedCategories] = useState<CategoryDto[]>([]);
     const [file,setFile] = useState<File|null>(null);
@@ -83,7 +85,7 @@ const CreatePost:FunctionComponent = () => {
         } else {
             await uploadImageAndCreatePost()
             handleNotification('success', validated.msg);
-            
+            navigate('/posts')
            
         }
 

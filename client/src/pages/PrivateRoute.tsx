@@ -2,14 +2,18 @@ import React, {FunctionComponent} from 'react'
 import {useSelector} from 'react-redux'
 import {Navigate} from 'react-router-dom'
 
-const PrivateRoute:FunctionComponent = () => {
+
+type Props = {
+  children : JSX.Element
+}
+const PrivateRoute:FunctionComponent<Props> = ({children}) => {
     const {user, logged} = useSelector((state:any) => state.auth);
 
     if(!user || !logged) {
-        <Navigate  to='/'/>
+      return  <Navigate  to='/login'/>
     }
       return (
-     <Navigate to='posts'/>
+     children
   )
 }
 

@@ -42,7 +42,7 @@ const Navbar:FunctionComponent = () => {
   return (
     <nav className='navContainer'>
         <div className="navLogo">
-            <h1>PostOn</h1>
+            <h1 onClick={() => navigate('/posts')}>PostOn</h1>
         </div>
         
             { !logged ?  (
@@ -56,7 +56,7 @@ const Navbar:FunctionComponent = () => {
               <>
               <div className="search-bar">
               <input  className='search-bar-input' type="text" onChange={(e) => handleChange(e)} />
-              { visible && <SearchResults  title={inputValue.toLowerCase()}/>}
+              { visible && <SearchResults  title={inputValue.toLowerCase() } handleVisible = {setVisible}/>}
               
               </div>
 
@@ -66,6 +66,7 @@ const Navbar:FunctionComponent = () => {
                   <img  src={user.profilePic} alt="" />
                   {bannerOpened && <Banner/>}
                 </div>
+                <p style={{fontSize: '20px', fontFamily: 'Roboto'}}>{user.username}</p>
               </div>
              
 

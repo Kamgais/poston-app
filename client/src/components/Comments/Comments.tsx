@@ -25,7 +25,7 @@ const Comments:FunctionComponent<Props> = (props) => {
   return (
     <>
 
-    {
+    {  
         props.comments?.map((comment:any, index) => (
             
             <div className="comment"  key={index}>

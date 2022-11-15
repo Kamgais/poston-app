@@ -27,7 +27,7 @@ export class CommentService {
         }
     }
 
-    static async getComments(id:number|undefined): Promise<CommentDto[]|null> {
+    static async getComments(id?:number): Promise<CommentDto[]|null> {
         try {
           const response = await axios.get(`${BASE_URL}/comments/${id}`);
           return response.data;
