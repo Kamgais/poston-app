@@ -20,6 +20,7 @@ const SinglePost:FunctionComponent = () => {
     const dispatch:Dispatch<(dispatch: any) => Promise<null | undefined>> = useDispatch<any>();
     const navigate = useNavigate();
     const {user} = useSelector((state:any) => state.auth)
+    const posts = useSelector((state:any) => state.posts);
     const {handleNotification} = useContext(notificationContext);
     const [post,setPost] = useState<PostDto|null>();
     const [commentCount, setCommentCount] = useState<number|null>(0);
@@ -34,17 +35,28 @@ const SinglePost:FunctionComponent = () => {
 
 
     const fetchPost = async() => {
+      if(id) {
         const response = await PostService.getPostById(+id!)
         setPost(response);
+      }
+        
     }
 
     const fetchComments = async() => {
-      if(post) {
-        const response = await CommentService.getComments(post!.id);
-        setComments(response);
-      }
+       const response = await CommentService.getComments(+id!);
+        setComments(response)
+      
+      
+       
+      
       
   }
+
+
+  useEffect(() => {
+    const newPost = posts.filter((post:any) => post.id === +id!)
+    setPost(newPost[0]);
+  })
 
     const handleComment = (e: React.ChangeEvent<HTMLButtonElement>) => {
      
@@ -60,6 +72,7 @@ const SinglePost:FunctionComponent = () => {
         commentRef.current!.value = '';
         handleNotification('success', 'successful commented');
        console.log(response)
+       navigate(0)
       }
      
     }
@@ -76,17 +89,17 @@ const SinglePost:FunctionComponent = () => {
 
      const addLike = () => {
       if(status === 'liked') {
-          dispatch(likePost(post?.id!, -1))  
+          dispatch(likePost(+id!, -1))  
           setStatus('') 
           
       } else  if (status === 'unliked'){
-          dispatch(unLikePost(post?.id!, -1));
-          dispatch(likePost(post?.id!, 1))
+          dispatch(unLikePost(+id!, -1));
+          dispatch(likePost(+id!, 1))
           setStatus('liked');
           
 
       } else {
-          dispatch(likePost(post?.id!, 1))
+          dispatch(likePost(+id!, 1))
           setStatus('liked'); 
           
       }
@@ -96,18 +109,18 @@ const SinglePost:FunctionComponent = () => {
 
   const disLike = () => {
     if(status === 'liked') {
-        dispatch(likePost(post?.id!, -1))
-        dispatch(unLikePost(post?.id!, 1));
+        dispatch(likePost(+id!, -1))
+        dispatch(unLikePost(+id!, 1));
         setStatus('unliked')
         
        
     } else if(status === 'unliked') {
-    dispatch(unLikePost(post?.id!, -1));
+    dispatch(unLikePost(+id!, -1));
     setStatus('');
     
    
     }  else {
-        dispatch(unLikePost(post?.id!, 1))
+        dispatch(unLikePost(+id!, 1))
        setStatus('unliked')
         
        
@@ -116,17 +129,26 @@ const SinglePost:FunctionComponent = () => {
 }
 
     const countComments = async() => {
-      const response = await CommentService.countComments(Number(id!))
-      setCommentCount(response);
+      if(id) {
+        const response = await CommentService.countComments(Number(id!))
+        setCommentCount(response);
+      }
+      
     }
    
     useEffect(() => {
-     fetchPost();
-     fetchComments();
-     countComments();
+    // fetchPost();
+    fetchComments();
+     
+     
      
     
-    },[comments,commentCount,status])
+    },[])
+  
+
+    useEffect(() => {
+      console.log(status)
+    },[status])
 
   return (
     <div className='singlePostContainer'>
@@ -137,7 +159,7 @@ const SinglePost:FunctionComponent = () => {
          <div style={{display: 'flex' , gap: '20px', fontFamily: 'Roboto'}} className="categories">
           {
             post?.categories?.map((category:any, index) => (
-              <p style={{background: 'rgb(4, 179, 170)', width: '100px' , display: 'flex', justifyContent: 'center', color: '#fff', height: '30px', alignItems: 'center' }} key={index}>{category.categoryName}</p>
+              <p  style={{background: 'rgb(4, 179, 170)', width: '100px' , display: 'flex', justifyContent: 'center', color: '#fff', height: '30px', alignItems: 'center' }} key={index}>{category.categoryName}</p>
             ))
           }
          </div>
@@ -172,7 +194,7 @@ const SinglePost:FunctionComponent = () => {
          <input type="text" ref={commentRef} onChange={(e:any) => handleComment(e)} />
          <button  onClick={saveComment}>Publish</button>
         <div className="comments">
-        <Comments comments={comments} delete={deleteComment}/>
+        { comments && <Comments comments={comments} delete={deleteComment}/>}
         </div>
         
         

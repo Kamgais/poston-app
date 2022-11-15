@@ -37,7 +37,7 @@ public class ImageService {
            return ResponseEntity.ok().body(imageMapper.toDto(image));
     }
 
-    public ResponseEntity<ImageDto> getImage(String imageName) {
+    public ImageDto getImage(String imageName) {
 
         Image image = imageRepository.findImageByName(imageName);
 
@@ -48,7 +48,7 @@ public class ImageService {
                 .picByte(ImageService.decompressBytes(image.getPicByte()))
                 .build();
 
-        return ResponseEntity.ok().body(imageMapper.toDto(responseImage));
+        return imageMapper.toDto(responseImage);
 
     }
 
