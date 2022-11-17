@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 public class PostService {
 
 
-
     @Autowired
     PostMapper postMapper;
     @Autowired
@@ -34,11 +33,17 @@ public class PostService {
     @Autowired
     ICategoryRepository categoryRepository;
 
+    @Autowired
+    ImageService imageService;
+
     // get all posts
     public ResponseEntity<List<PostDto>> getAllPost() {
-     List<Post> posts = (List<Post>) postRepository.findAll();
-     List<PostDto> postDtos = posts.stream().map(e-> postMapper.toDto(e)).collect(Collectors.toList());
-     return ResponseEntity.ok().body(postDtos);
+
+
+
+        List<Post> posts = (List<Post>) postRepository.findAll();
+        List<PostDto> postDtos = posts.stream().map(e -> postMapper.toDto(e)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(postDtos);
     }
 
     // get post by id
@@ -46,16 +51,14 @@ public class PostService {
 
         Optional<Post> post = postRepository.findById(id);
 
-        if(post.isPresent()) {
+        if (post.isPresent()) {
             return ResponseEntity.ok().body(postMapper.toDto(post.get()));
-        }
-
-        else {
+        } else {
             return ResponseEntity.badRequest().build();
         }
     }
 
-    public ResponseEntity<PostDto> updatePost(Long id,PostDto updatedPost) {
+    public ResponseEntity<PostDto> updatePost(Long id, PostDto updatedPost) {
         Optional<Post> post = postRepository.findById(id);
         if (post.isPresent()) {
             Post newPost = post.get();
@@ -66,7 +69,6 @@ public class PostService {
             newPost.setUnlikeCount(updatedPost.getUnlikeCount());
 
 
-
             return ResponseEntity.ok().body(postMapper.toDto(postRepository.save(newPost)));
         }
 
@@ -75,7 +77,7 @@ public class PostService {
     }
 
 
-     // add a new post
+    // add a new post
     public ResponseEntity<PostDto> addPost(PostDto post) {
         Post newPost = postRepository.save(postMapper.toEntity(post));
         return ResponseEntity.ok().body(postMapper.toDto(newPost));
@@ -84,7 +86,7 @@ public class PostService {
     public ResponseEntity<String> deletePost(Long id) {
         String message;
         Optional<Post> post = postRepository.findById(id);
-        if(post.isPresent()) {
+        if (post.isPresent()) {
             postRepository.deleteById(id);
             message = " Post deleted sucessful";
             return ResponseEntity.ok().body(message);
@@ -94,10 +96,10 @@ public class PostService {
     }
 
 
-    public ResponseEntity<String> likePost( Long likeCounter, Long id) {
+    public ResponseEntity<String> likePost(Long likeCounter, Long id) {
         String message;
         Optional<Post> post = postRepository.findById(id);
-        if(post.isPresent()) {
+        if (post.isPresent()) {
             post.get().setLikeCount(post.get().getLikeCount() + likeCounter);
             postRepository.save(post.get());
             return ResponseEntity.ok().body("post gelikt");
@@ -113,7 +115,7 @@ public class PostService {
         String message;
         Optional<Post> post = postRepository.findById(id);
 
-        if(post.isPresent()) {
+        if (post.isPresent()) {
             post.get().setUnlikeCount(post.get().getUnlikeCount() + unlikeCounter);
             postRepository.save(post.get());
             return ResponseEntity.ok().body("post ungelikt");
@@ -124,9 +126,9 @@ public class PostService {
     }
 
     public ResponseEntity<List<PostDto>> getPostByCategoryName(String categoryName) {
-        Category category =  categoryRepository.findCategoryByCategoryName(categoryName);
+        Category category = categoryRepository.findCategoryByCategoryName(categoryName);
         List<Post> posts = (List<Post>) postRepository.findAll();
-        List<Post> foundPosts = posts.stream().filter(e-> e.getCategories().contains(category)).collect(Collectors.toList());
+        List<Post> foundPosts = posts.stream().filter(e -> e.getCategories().contains(category)).collect(Collectors.toList());
         List<PostDto> foundPostDtos = foundPosts.stream().map(e -> postMapper.toDto(e)).collect(Collectors.toList());
         return ResponseEntity.ok().body(foundPostDtos);
 
@@ -135,8 +137,8 @@ public class PostService {
 
 
     public ResponseEntity<List<PostDto>> getPostByTitle(String postTitle) {
-       List<Post> posts = postRepository.findPostByTitle(postTitle);
-        return ResponseEntity.ok().body(posts.stream().limit(8).map(e-> postMapper.toDto(e)).collect(Collectors.toList()));
+        List<Post> posts = postRepository.findPostByTitle(postTitle);
+        return ResponseEntity.ok().body(posts.stream().limit(8).map(e -> postMapper.toDto(e)).collect(Collectors.toList()));
     }
 
 }
