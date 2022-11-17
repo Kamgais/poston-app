@@ -8,7 +8,7 @@ export const getAllPosts = () => async(dispatch:any) => {
         console.log(response)
         dispatch(getPosts(response));
     } catch (error) {
-        console.log(error)
+        console.error(error)
        return null; 
     }
 }
@@ -19,7 +19,7 @@ export const getPostByCategoryName = (categoryName: String) => async(dispatch:an
         const response = await PostService.getPostByCategoryName(categoryName);
         dispatch(getPosts(response))
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return null;
     }
 }

@@ -1,0 +1,41 @@
+.tagContainer {
+  display: flex;
+  width: 50%;
+  min-height: 50px;
+  border: 3px solid;
+  padding: 10px;
+  font-family: "Roboto", sans-serif;
+}
+.tagContainer .tagElements {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.tagContainer .tagElements .tagList {
+  display: flex;
+  gap: 5px;
+  list-style: none;
+}
+.tagContainer .tagElements .tagList .tagListElement {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 5px;
+  background: #74b9ff;
+  color: #ffffff;
+  font-weight: bold;
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+.tagContainer .tagElements .tagList .tagListElement .tagListIcon {
+  font-size: 15px;
+  color: #ffffff;
+}
+.tagContainer .tagElements .tagInput {
+  border: none;
+  outline: none;
+  font-family: "Roboto", sans-serif;
+  width: 100px;
+}/*# sourceMappingURL=tagComponent.css.map */

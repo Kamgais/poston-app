@@ -29,7 +29,7 @@ const SinglePost:FunctionComponent = () => {
       post: post,
       user: user
     });
-    const [comments, setComments] = useState<CommentDto[]|null>([]);
+    const [comments, setComments] = useState<CommentDto[]|null>(null);
     const [status,setStatus] = useState<string>("");
     
 
@@ -53,10 +53,7 @@ const SinglePost:FunctionComponent = () => {
   }
 
 
-  useEffect(() => {
-    const newPost = posts.filter((post:any) => post.id === +id!)
-    setPost(newPost[0]);
-  })
+
 
     const handleComment = (e: React.ChangeEvent<HTMLButtonElement>) => {
      
@@ -72,7 +69,11 @@ const SinglePost:FunctionComponent = () => {
         commentRef.current!.value = '';
         handleNotification('success', 'successful commented');
        console.log(response)
-       navigate(0)
+          // @ts-ignore
+          setComments(function (prevState: CommentDto[] | null) {
+              return [...prevState!, response];
+          });
+      // navigate(0)
       }
      
     }
@@ -137,9 +138,9 @@ const SinglePost:FunctionComponent = () => {
     }
    
     useEffect(() => {
-    // fetchPost();
-    fetchComments();
-     
+     fetchPost().then(r => {});
+    fetchComments().then(r => {} );
+     countComments().then(r => {} )
      
      
     

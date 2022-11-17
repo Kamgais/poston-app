@@ -96,6 +96,7 @@
   outline: 3px solid rgb(187, 187, 187);
 }
 .createPostContainer .createPostForm .createPostActions {
+  position: relative;
   margin-top: 20px;
   width: 95%;
   display: flex;

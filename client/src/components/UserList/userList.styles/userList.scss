@@ -1,0 +1,44 @@
+@import '../../../styles/fonts';
+@import '../../../styles/colors';
+
+.userListContainer{
+    position: absolute;
+    width: 30%;
+    bottom: 120%;
+    font-family: $family;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    height: max-content;
+    padding: 10px;
+    font-size: 20px;
+    background: $base-white-color;
+
+   
+
+    .userListElement{
+        display: flex;
+        flex-direction: column;
+        gap:10px;
+    }
+
+    .userList{
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 5px;
+        transition: all 0.2s ease-out;
+
+        img{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+
+        }
+
+
+
+        &:hover{
+            background: $button-color ;
+            cursor: pointer;
+        }
+    }
+}
