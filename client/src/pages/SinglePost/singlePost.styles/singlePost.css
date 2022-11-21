@@ -48,6 +48,9 @@
   font-size: 20px;
   font-family: "Roboto", sans-serif;
 }
+.singlePostContainer .singlePostInfos .postActions .like:hover, .singlePostContainer .singlePostInfos .postActions .unlike:hover, .singlePostContainer .singlePostInfos .postActions .comment:hover {
+  cursor: pointer;
+}
 .singlePostContainer .singlePostInfos .postActions img {
   width: 50px;
 }

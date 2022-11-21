@@ -58,7 +58,7 @@ public class PostMapper implements  Mapper<Post, PostDto>{
                 .unlikeCount(postDto.getUnlikeCount())
                 .dateCreated(postDto.getDateCreated())
                 .user(user.get())
-                .image(imageMapper.toEntity(postDto.getImage()))
+                .image(image.get())
                 .categories(postDto.getCategories().stream().map(e -> categoryRepository.findCategoryByCategoryName(e.getCategoryName())).collect(Collectors.toList()))
                 .build();
     }
@@ -78,7 +78,7 @@ public class PostMapper implements  Mapper<Post, PostDto>{
                .unlikeCount(post.getUnlikeCount())
                .dateCreated(post.getDateCreated())
                .user(userMapper.toDto(post.getUser()))
-               .image(imageMapper.toDto(post.getImage()))
+               .image(imageService.getImage(post.getImage().getName()))
                .categories(post.getCategories().stream().map(e -> categoryMapper.toDto(e)).collect(Collectors.toList()))
                .build();
     }

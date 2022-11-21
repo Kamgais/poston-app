@@ -58,6 +58,13 @@
                 gap: 5px;
                 font-size: 20px;
                 font-family: $family;
+
+
+                &:hover{
+                    cursor: pointer;
+                }
+
+
             }
 
             img{

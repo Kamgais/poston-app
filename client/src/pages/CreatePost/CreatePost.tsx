@@ -9,6 +9,10 @@ import { PostDto } from '../../types/PostDto';
 import './createPost.styles/createPost.css';
 import { ImageService } from '../../services/ImageService';
 import { PostService } from '../../services/PostService';
+import TagComponent from '../../components/TagComponent/TagComponent';
+import UserList from '../../components/UserList/UserList';
+import { TagDto } from '../../types/TagDto';
+import { TagService } from '../../services/TagService';
 
 
 type ValidField = {
@@ -34,6 +38,8 @@ const CreatePost:FunctionComponent = () => {
 
     });
     const [image,setImage] = useState<ImageDto|null>();
+    const [usernameSearched, setUsernameSearch] = useState<string>('');
+    const [tags, setTags] = useState<TagDto[]|null>([]);
     const imageUrl = "https://icon-library.com/images/none-icon/none-icon-0.jpg";
 
 
@@ -83,18 +89,12 @@ const CreatePost:FunctionComponent = () => {
         if(!validated.valid) {
           handleNotification('error',validated.msg);
         } else {
-            await uploadImageAndCreatePost()
+            await uploadImageAndCreatePostAndSaveTags()
             handleNotification('success', validated.msg);
             navigate('/posts')
            
         }
-
-
-
-
-
-
-    }
+      }
 
 
     const formValid = ():ValidField => {
@@ -123,44 +123,33 @@ const CreatePost:FunctionComponent = () => {
     }
 
 
-    const uploadImageAndCreatePost = async() => {
+    const uploadImageAndCreatePostAndSaveTags = async() => {
         
             const data = new FormData();
             data.append('file',file!, Date.now()+file!.name);
             console.log(data)
+
             const response = await ImageService.uploadImage(data);
             console.log(response)
+
             setImage(response);
             const newImage = await ImageService.getImage(response?.name!)
+
             setImage(newImage);
             const newPost:PostDto = {...post, categories: selectedCategories, image: newImage!}
             const postResponse = await PostService.savePost(newPost);
-            
-       
-        
+
+            const newTags = [...tags!];
+            newTags.forEach((tag) => {
+               tag.post = postResponse!;
+            })
+
+            setTags(tags);
+
+            const tagsResponse = await TagService.createTags(newTags);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  return (
+return (
     <div className='createPostContainer'>
       <div className="categoryList">
         <h3>Category</h3>
@@ -193,8 +182,10 @@ const CreatePost:FunctionComponent = () => {
        </div>
 
        <div className="createPostActions">
-       <i className="fa-solid fa-circle-plus"></i>
-       <button type='submit'>Post</button>
+      
+       { usernameSearched.length > 0  && <UserList username={usernameSearched}  setTags={setTags} setUsername={setUsernameSearch}  tags={tags}/>} 
+       <TagComponent username={usernameSearched} setUsername={setUsernameSearch}  tags={tags}/>
+       <button type='submit' >Post</button>
        </div>
 
 

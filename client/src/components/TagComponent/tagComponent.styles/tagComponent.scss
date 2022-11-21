@@ -1,0 +1,53 @@
+@import '../../../styles/fonts';
+@import '../../../styles/colors';
+
+
+.tagContainer{
+    display: flex;
+    
+    width: 50%;
+    min-height: 50px;
+    border: 3px solid;
+    padding: 10px;
+    font-family: $family ;
+
+
+    .tagElements{
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+
+        .tagList{
+            display: flex;
+            gap: 5px;
+            list-style: none;
+
+            .tagListElement{
+                width: max-content;
+                padding: 5px;
+                background: $button-color;
+                color: $base-white-color;
+                font-weight: bold;
+                display: flex;
+                gap: 3px;
+                align-items: center;
+
+
+                .tagListIcon{
+                    font-size: 15px;
+                    color: $base-white-color;
+                }
+            }
+
+            }
+
+            .tagInput {
+              border: none;
+              outline: none;
+              font-family: $family;
+              width: 100px;
+
+            }
+    }
+}
