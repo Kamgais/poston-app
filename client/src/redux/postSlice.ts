@@ -6,11 +6,9 @@ import { PostDto } from "../types/PostDto";
 
 let initialState: PostDto[];
 
-if( localStorage.getItem('posts')) {
-    initialState = JSON.parse(localStorage.getItem('posts')!);
-} else {
+
     initialState = [];
-}
+
 
    
 
@@ -21,17 +19,20 @@ export const postSlice = createSlice({
     reducers: {
         addPost: (state,action) => {
             state.push(action.payload);
+            return state;
            // sessionStorage.setItem('posts', JSON.stringify(state))
         },
      
         removePost: (state,action) => {
             state = state.filter((post) => post.id !== action.payload);
+            return state;
            // sessionStorage.setItem('posts', JSON.stringify(state))
         },
 
         updatePost: (state, action) => {
             const index = state.findIndex(post => post.id === action.payload.id);
             state[index] = action.payload;
+            return state;
            // sessionStorage.setItem('posts', JSON.stringify(state))
         },
 
@@ -44,6 +45,8 @@ export const postSlice = createSlice({
 
         addLike: (state,action) => {
             const index = state.findIndex((post) =>  post.id === action.payload.id);
+            console.log(index)
+            console.log(action.payload.id)
             state[index].likeCount = state[index].likeCount + action.payload.likeCounter;
            // sessionStorage.setItem('posts', JSON.stringify(state))
             return state;

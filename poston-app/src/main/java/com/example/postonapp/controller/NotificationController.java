@@ -1,0 +1,30 @@
+package com.example.postonapp.controller;
+
+
+import com.example.postonapp.dtos.NotificationDto;
+import com.example.postonapp.services.NotificationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/notifications")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+public class NotificationController {
+
+    @Autowired
+    private NotificationService notificationService;
+
+    @PostMapping("")
+    public ResponseEntity<NotificationDto> createNotification(@RequestBody NotificationDto notificationDto) {
+        return notificationService.createNotification(notificationDto);
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<List<NotificationDto>> findNotifsByUserId(@PathVariable("id") Long userId) {
+        return notificationService.getNotifsByUserId(userId);
+    }
+}

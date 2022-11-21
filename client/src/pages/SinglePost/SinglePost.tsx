@@ -1,6 +1,7 @@
 import React,{FunctionComponent, useEffect, useState, useContext, useRef, Dispatch} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { likePost, unLikePost } from '../../redux/actions/posts.actions';
+import { getAndSetNotifsByUserId } from '../../redux/actions/notifs.actions';
 import { useNavigate } from 'react-router-dom';
 import {notificationContext} from '../../context/NotificationContext';
 import { useParams } from 'react-router-dom';
@@ -13,6 +14,7 @@ import { PostService } from '../../services/PostService';
 import Comments from '../../components/Comments/Comments';
 import { CommentService } from '../../services/CommentService';
 import { CommentDto } from '../../types/CommentDto';
+import { NotificationService } from '../../services/NotificationService';
 
 const SinglePost:FunctionComponent = () => {
     const {id} = useParams();
@@ -38,7 +40,13 @@ const SinglePost:FunctionComponent = () => {
       if(id) {
         const response = await PostService.getPostById(+id!)
         setPost(response);
+
+
+   
+        
       }
+
+
         
     }
 
@@ -74,6 +82,13 @@ const SinglePost:FunctionComponent = () => {
               return [...prevState!, response];
           });
       // navigate(0)
+      await NotificationService.createNotif({
+        message: `${user.username} comment the post ${post?.title}`,
+        dateCreated: new Date(),
+        userId: user.id,
+        post: post!,
+        read: false
+      })
       }
      
     }
@@ -83,49 +98,82 @@ const SinglePost:FunctionComponent = () => {
       const response = await CommentService.deleteComment(id);
       handleNotification('success', 'successful deleted');
     
+      await NotificationService.createNotif({
+        message: `${user.username} deleted the comment of the post ${post?.title}`,
+        dateCreated: new Date(),
+        userId: user.id,
+        post: post!,
+        read: false
+      })
       
      }
 
 
 
-     const addLike = () => {
+     const addLike = async() => {
       if(status === 'liked') {
-          dispatch(likePost(+id!, -1))  
+        
+          dispatch(likePost(+id!, -1))
+          setPost({...post, likeCount: post?.likeCount! - 1 })
           setStatus('') 
+          
           
       } else  if (status === 'unliked'){
           dispatch(unLikePost(+id!, -1));
           dispatch(likePost(+id!, 1))
+          setPost({...post, unlikeCount: post?.unlikeCount! - 1, likeCount: post?.likeCount! + 1 })
+          
           setStatus('liked');
           
 
       } else {
           dispatch(likePost(+id!, 1))
+          setPost({...post, likeCount: post?.likeCount! + 1 })
           setStatus('liked'); 
           
       }
+
+      await NotificationService.createNotif({
+        message: `${user.username} liked the post ${post?.title}`,
+        dateCreated: new Date(),
+        userId: user.id,
+        post: post!,
+        read: false
+      })
      
   }
 
 
-  const disLike = () => {
+  const disLike = async() => {
     if(status === 'liked') {
         dispatch(likePost(+id!, -1))
         dispatch(unLikePost(+id!, 1));
+        setPost({...post, likeCount: post?.likeCount! - 1, unlikeCount: post?.unlikeCount! + 1 })
+        
         setStatus('unliked')
         
        
     } else if(status === 'unliked') {
     dispatch(unLikePost(+id!, -1));
+    setPost({...post, unlikeCount: post?.unlikeCount! - 1 })
     setStatus('');
     
    
     }  else {
         dispatch(unLikePost(+id!, 1))
+        setPost({...post, unlikeCount: post?.unlikeCount! + 1 })
        setStatus('unliked')
         
        
     }
+
+    await NotificationService.createNotif({
+      message: `${user.username} disliked the post ${post?.title}`,
+      dateCreated: new Date(),
+      userId: user.id,
+      post: post!,
+      read: false
+    })
    
 }
 
@@ -140,7 +188,8 @@ const SinglePost:FunctionComponent = () => {
     useEffect(() => {
      fetchPost().then(r => {});
     fetchComments().then(r => {} );
-     countComments().then(r => {} )
+     countComments().then(r => {} );
+     console.log(+id!)
      
      
     

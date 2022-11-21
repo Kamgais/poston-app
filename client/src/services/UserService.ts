@@ -17,4 +17,16 @@ export class UserService {
            return null; 
         }
     }
+
+
+    static async getUserById(id: number): Promise<UserDto|null> {
+     
+      try {
+        const response = await axios(`${BASE_URL}/users/${id}`);
+        return response.data;
+      } catch (error) {
+        console.log(error);
+        return null;
+      }
+    }
 }
