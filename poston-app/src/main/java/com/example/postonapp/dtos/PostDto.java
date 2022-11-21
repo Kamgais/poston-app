@@ -2,9 +2,7 @@ package com.example.postonapp.dtos;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
 import java.util.Date;
@@ -14,6 +12,8 @@ import java.util.List;
 @Setter
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@NoArgsConstructor
+@AllArgsConstructor
 public class PostDto {
     private Long id ;
 

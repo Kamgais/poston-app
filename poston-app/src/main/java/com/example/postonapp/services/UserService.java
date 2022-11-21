@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,5 +25,11 @@ public class UserService {
      List<User> users = userRepository.findUsersByUsername(username);
 
      return ResponseEntity.ok().body(users.stream().limit(5).map(e-> userMapper.toDto(e)).collect(Collectors.toList()));
+    }
+
+
+    public ResponseEntity<UserDto> getUserById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        return ResponseEntity.ok().body(userMapper.toDto(user.get()));
     }
 }

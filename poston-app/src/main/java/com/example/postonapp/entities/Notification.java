@@ -2,15 +2,21 @@ package com.example.postonapp.entities;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.Date;
 
+import static javax.persistence.CascadeType.*;
+import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
+
 @Entity
 @Table(name = "notification")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Notification {
@@ -22,4 +28,12 @@ public class Notification {
     private String message;
 
     private Date dateCreated;
+
+ private boolean isRead;
+
+ @ManyToOne(cascade = CascadeType.ALL)
+ User user;
+
+ @ManyToOne(cascade = CascadeType.ALL)
+ Post post;
 }
