@@ -14,4 +14,25 @@ export class TagService {
           return null;  
         }
     }
+
+    static async getTagsByPostId(postId: number) : Promise<TagDto[]|null> {
+      try {
+        const response = await axios.get(`${BASE_URL}/tags/${postId}`);
+        return response.data;
+      } catch (error) {
+        console.log(error);
+        return null;
+      }
+    }
+
+
+    static async updateTags(tags: TagDto[], id: number) : Promise<TagDto[]|null> {
+      try {
+        const response = await axios.put(`${BASE_URL}/tags/${id}`, tags);
+        return response.data;
+      } catch (error) {
+        console.log(error);
+        return null;
+      }
+    }
 }

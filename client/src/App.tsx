@@ -14,6 +14,7 @@ import SinglePost from './pages/SinglePost/SinglePost';
 import CreatePost from './pages/CreatePost/CreatePost';
 import PrivateRoute from './pages/PrivateRoute';
 import Notifications from './pages/Notifications/Notifications';
+import UpdatePost from './pages/UpdatePost/UpdatePost';
 
 function App() {
    const {user, logged} = useSelector((state:any) => state.auth)
@@ -31,6 +32,7 @@ function App() {
         <Route path='/posts' element={<PrivateRoute><Posts/></PrivateRoute>}/>
         <Route path='/posts/:id' element={<PrivateRoute><SinglePost/></PrivateRoute>}/>
         <Route path='/posts/add' element={<PrivateRoute><CreatePost/></PrivateRoute>}/>
+        <Route path='/posts/update/:id' element={<PrivateRoute><UpdatePost/></PrivateRoute>}/>
         <Route path='/notifs' element={<PrivateRoute><Notifications/></PrivateRoute>}/>
         <Route path='*' element={<Navigate to='/login'/>}/>
       </Routes>

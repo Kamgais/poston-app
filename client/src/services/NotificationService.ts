@@ -25,4 +25,15 @@ export class NotificationService {
           return null;  
         }
     }
+
+
+    static async readNotification(id: number): Promise<String|null> {
+      try {
+        const response = await axios.get(`${BASE_URL}/notifications/read/${id}`);
+        return response.data;
+      } catch (error) {
+        console.log(error);
+        return null;
+      }
+    }
 }

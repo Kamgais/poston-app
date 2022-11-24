@@ -27,4 +27,9 @@ public class NotificationController {
     public ResponseEntity<List<NotificationDto>> findNotifsByUserId(@PathVariable("id") Long userId) {
         return notificationService.getNotifsByUserId(userId);
     }
+
+    @GetMapping("/read/{id}")
+    public ResponseEntity<String> readNotification(@PathVariable("id") Long id) {
+        return notificationService.readNotification(id);
+    }
 }

@@ -21,7 +21,7 @@ public class Tag {
     private Long id;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Post post;
 
     @ManyToOne

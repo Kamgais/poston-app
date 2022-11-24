@@ -8,6 +8,7 @@ import './navbar.styles/navbar.css';
 const Navbar:FunctionComponent = () => {
   const navigate = useNavigate();
   const {user, logged} = useSelector((state:any) => state.auth)
+  const notifs = useSelector((state:any) => state.notifs);
   const [inputValue,setInputValue] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(false);
   const [bannerOpened, setBannerOpened] = useState<boolean>(false);
@@ -39,6 +40,10 @@ const Navbar:FunctionComponent = () => {
     navigate('/signup')
     window.location.reload();
   }
+
+  const navigateToNotificationPage = () => {
+    navigate('/notifs');
+  }
   return (
     <nav className='navContainer'>
         <div className="navLogo">
@@ -61,7 +66,10 @@ const Navbar:FunctionComponent = () => {
               </div>
 
               <div className="user-infos">
-              <i className="fa-solid fa-bell"></i>
+              <i className="fa-solid fa-bell" onClick={navigateToNotificationPage} ></i>
+               { notifs.filter((e:any) => !e.read && e.userId !== user.id ).length !== 0 && <div className="notifs-quote">
+                {notifs.filter((e:any) => !e.read && e.userId !== user.id ).length}
+               </div>}
                 <div onClick={handleBanner} className="user-pic">
                   <img  src={user.profilePic} alt="" />
                   {bannerOpened && <Banner/>}

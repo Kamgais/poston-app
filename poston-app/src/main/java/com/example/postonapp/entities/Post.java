@@ -41,8 +41,7 @@ public class Post {
     @OneToOne(cascade = CascadeType.ALL)
     private Image image;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Notification> notifications;
+
 
 
 
