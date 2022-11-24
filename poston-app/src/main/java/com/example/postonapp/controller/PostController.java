@@ -34,7 +34,7 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PostDto> updatePost(@PathVariable Long id , @RequestBody PostDto postDto) {
+    public ResponseEntity<PostDto> updatePost(@PathVariable("id") Long id , @RequestBody PostDto postDto) {
         return postService.updatePost(id,postDto);
     }
 
@@ -61,7 +61,7 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletePost(@PathVariable Long id) {
+    public ResponseEntity<String> deletePost(@PathVariable("id") Long id) {
         return postService.deletePost(id);
     }
 }

@@ -15,11 +15,22 @@ export const notifSlice = createSlice({
         getAndSetNotifs: (state, action) => {
             state = [...action.payload];
             return state;
+        },
+
+        read: (state, action) => {
+            state.forEach((notif:any, index:any) => {
+                if(notif.id === action.payload) {
+                    notif.read = true;
+                }
+           
+
+            });
+            return state;
         }
     }
 })
 
 
-export const {getAndSetNotifs} = notifSlice.actions;
+export const {getAndSetNotifs, read} = notifSlice.actions;
 
 export default notifSlice.reducer;

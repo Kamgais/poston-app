@@ -50,8 +50,10 @@
   cursor: pointer;
 }
 .navContainer .user-infos {
+  position: relative;
   display: flex;
-  width: 10%;
+  width: 15%;
+  max-width: 200px;
   min-width: 170px;
   justify-content: space-evenly;
   align-items: center;
@@ -59,6 +61,20 @@
 .navContainer .user-infos i {
   font-size: 30px;
   cursor: pointer;
+}
+.navContainer .user-infos .notifs-quote {
+  font-size: 10px;
+  font-family: "Roboto", sans-serif;
+  width: 20px;
+  height: 20px;
+  background: #74b9ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: absolute;
+  left: 15%;
+  top: 2%;
 }
 .navContainer .user-pic {
   width: 50px;

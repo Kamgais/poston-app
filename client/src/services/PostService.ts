@@ -33,6 +33,17 @@ export class PostService {
     }
 
 
+    static async updatePost(post: PostDto, id: number): Promise<PostDto|null> {
+        try {
+          const response = await axios.put(`${BASE_URL}/posts/${id}`, post);
+          return response.data;  
+        } catch (error) {
+         console.log(error);
+         return null;   
+        }
+    }
+
+
 
     static async getPostById(id:number):Promise<PostDto|null> {
         try {
@@ -75,6 +86,17 @@ export class PostService {
         } catch (error) {
           console.log(error);
           return null; 
+        }
+    }
+
+
+    static async deletePost(id: number) : Promise<string|null> {
+        try {
+            const response = await axios.delete(`${BASE_URL}/posts/${id}`);
+            return response.data;
+        } catch (error) {
+           console.log(error) 
+           return null;
         }
     }
 }

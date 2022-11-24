@@ -20,6 +20,36 @@
             height: 650px;
             object-fit: cover;
         }
+
+
+
+        .singlePostContainerActions{
+            position: absolute;
+            top: 3%;
+            right: 2%;
+            display: flex;
+            gap: 10px;
+
+
+            i{
+                color: $base-white-color;
+                background-color: black;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: all 0.4s ease-out;
+
+
+                &:hover {
+                    background-color: $base-white-color;
+                    color: black;
+                    cursor: pointer;
+                }
+            }
+        }
     }
 
 

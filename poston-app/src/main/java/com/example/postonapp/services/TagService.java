@@ -38,6 +38,16 @@ public class TagService {
     }
 
 
+
+    public ResponseEntity<List<TagDto>> updateTags(List<TagDto> tagDtos, Long id) {
+        List<Tag> tags = tagRepository.findTagsByPostId(id);
+        tags.stream().forEach(e-> tagRepository.deleteById(e.getId()));
+        List<Tag> newTags = tagDtos.stream().map(e->tagMapper.toEntity(e)).collect(Collectors.toList());
+       Iterable<Tag> savedTags =  tagRepository.saveAll(newTags);
+       return ResponseEntity.ok().body(newTags.stream().map(e-> tagMapper.toDto(e)).collect(Collectors.toList()));
+    }
+
+
     public ResponseEntity<List<TagDto>> getTagByPostId(Long id) {
        List<Tag> tags = tagRepository.findTagsByPostId(id);
 

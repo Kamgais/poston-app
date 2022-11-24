@@ -184,6 +184,11 @@ const SinglePost:FunctionComponent = () => {
       }
       
     }
+
+    const deletePost = async () => {
+     const response =  await PostService.deletePost(post?.id!);
+      handleNotification('success', response!)
+    }
    
     useEffect(() => {
      fetchPost().then(r => {});
@@ -204,6 +209,10 @@ const SinglePost:FunctionComponent = () => {
     <div className='singlePostContainer'>
         <div className="singlePostImage">
          <img src={`data:image/jpeg;base64,${post?.image?.picByte}`}/>
+         { post?.user?.id === user.id  && <div className="singlePostContainerActions">
+         <i className="fa-solid fa-pen-to-square" onClick={() => navigate(`/posts/update/${post?.id}`)}></i>
+         <i className="fa-solid fa-trash-can" onClick={deletePost}></i>
+         </div>}
          <div  style={{display: 'flex', justifyContent: 'space-between'}} className="author-infos">
          <p style={{fontFamily: 'Roboto'}}>Author : { post  && post?.user?.username?.toUpperCase()}</p>
          <div style={{display: 'flex' , gap: '20px', fontFamily: 'Roboto'}} className="categories">

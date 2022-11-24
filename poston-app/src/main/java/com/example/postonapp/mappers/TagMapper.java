@@ -1,9 +1,13 @@
 package com.example.postonapp.mappers;
 
 import com.example.postonapp.dtos.TagDto;
+import com.example.postonapp.entities.Post;
 import com.example.postonapp.entities.Tag;
+import com.example.postonapp.repositories.IPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 
 @Component
@@ -16,13 +20,17 @@ public class TagMapper implements Mapper<Tag, TagDto>{
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private IPostRepository postRepository;
+
     @Override
     public Tag toEntity(TagDto tagDto) {
         if(tagDto == null) {
             return null;
         } else {
+            Optional<Post> post = postRepository.findById(tagDto.getPost().getId());
            return  Tag.builder()
-                    .post(postMapper.toEntity(tagDto.getPost()))
+                    .post(post.get())
                     .user(userMapper.toEntity(tagDto.getUser()))
                     .build();
         }

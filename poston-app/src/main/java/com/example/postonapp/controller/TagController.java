@@ -25,8 +25,14 @@ public class TagController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<TagDto>> getTagByPostId(Long id) {
+    public ResponseEntity<List<TagDto>> getTagByPostId(@PathVariable("id") Long id) {
         return tagService.getTagByPostId(id);
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<List<TagDto>> updateTags(@PathVariable("id") Long id, @RequestBody List<TagDto> tagDtos) {
+        return tagService.updateTags(tagDtos, id);
     }
 
 
