@@ -159,10 +159,16 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
         return {valid: false,  msg: 'you must set a image'}
        }
 
-       if( file && file!.size > 300 && !body) {
+       if( file && file!.size / 1024 / 1024 > 300 && !body) {
+        console.log(file.size)
         return {valid: false, msg: 'image size must smaller than 300ko'}
        }
-       return {valid: true , msg: 'post created'}
+      if(type === 'CREATE') {
+        return {valid: true , msg: 'post created'}
+      }  
+      else {
+        return {valid: true , msg: 'post updated'}
+      }
 
     }
 
@@ -194,12 +200,16 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
         }
 
          if(body && file) {
-          newPost = {...post, categories: selectedCategories, image: newImage!}
+          newPost = {...post, categories: selectedCategories, image: newImage!, id: body.id}
             
         }
 
         if(body && !file) {
            newPost = {...post , categories: selectedCategories, image: body.image, id: body.id} 
+        }
+
+        if(!body && file) {
+            newPost = {...post , categories: selectedCategories, image: newImage}  
         }
 
 
@@ -246,7 +256,10 @@ return (
         {
             categories?.map((category:any, index: React.Key | null | undefined) => (
                 <div key={index}>
-                <input onChange={(e) => onCategoriesArray(e)} name={category.categoryName} type="checkbox"  checked= {selectedCategories.filter(e => e.id === category.id).length > 0 &&  true}/>
+                { type === 'UPDATE' &&  <input onChange={(e) => onCategoriesArray(e)} name={category.categoryName} type="checkbox"  checked= {selectedCategories.filter(e => e.id === category.id).length > 0 &&  true}/>}
+                
+                {type === 'CREATE' && <input type= "checkbox" onChange={(e) => onCategoriesArray(e)} name={category.categoryName} />}
+                
                 <label className='categoryLabel'>{category.categoryName}</label>
                 
                 </div>

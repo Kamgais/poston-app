@@ -15,6 +15,8 @@ import CreatePost from './pages/CreatePost/CreatePost';
 import PrivateRoute from './pages/PrivateRoute';
 import Notifications from './pages/Notifications/Notifications';
 import UpdatePost from './pages/UpdatePost/UpdatePost';
+import Settings from './pages/Settings/Settings';
+import MyPosts from './pages/MyPosts/MyPosts';
 
 function App() {
    const {user, logged} = useSelector((state:any) => state.auth)
@@ -25,7 +27,7 @@ function App() {
      <Navbar/>
      <Notification  type={notification!.type} msg={notification!.msg}/>
     </header>
-    <main style={{marginBottom: '100px'}} >
+    <main>
       <Routes>
         <Route path='/signup' element = {<RegisterPage/>}/>
         <Route path='/login' element = {<LoginPage/>}/>
@@ -34,6 +36,8 @@ function App() {
         <Route path='/posts/add' element={<PrivateRoute><CreatePost/></PrivateRoute>}/>
         <Route path='/posts/update/:id' element={<PrivateRoute><UpdatePost/></PrivateRoute>}/>
         <Route path='/notifs' element={<PrivateRoute><Notifications/></PrivateRoute>}/>
+        <Route path='/settings' element={<PrivateRoute><Settings/></PrivateRoute>}/>
+        <Route path='/my--posts' element={<PrivateRoute><MyPosts/></PrivateRoute>}/>
         <Route path='*' element={<Navigate to='/login'/>}/>
       </Routes>
     </main>

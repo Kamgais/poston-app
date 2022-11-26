@@ -12,6 +12,7 @@ const Navbar:FunctionComponent = () => {
   const [inputValue,setInputValue] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(false);
   const [bannerOpened, setBannerOpened] = useState<boolean>(false);
+  const imageUrl = "https://icon-library.com/images/none-icon/none-icon-0.jpg";
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +72,7 @@ const Navbar:FunctionComponent = () => {
                 {notifs.filter((e:any) => !e.read && e.userId !== user.id ).length}
                </div>}
                 <div onClick={handleBanner} className="user-pic">
-                  <img  src={user.profilePic} alt="" />
+                  <img  src={user.image ? `data:image/jpeg;base64,${user?.image?.picByte}` : imageUrl} alt="" />
                   {bannerOpened && <Banner/>}
                 </div>
                 <p style={{fontSize: '20px', fontFamily: 'Roboto'}}>{user.username}</p>

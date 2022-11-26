@@ -11,6 +11,7 @@ type Props = {
 }
 const Comments:FunctionComponent<Props> = (props) => {
     const {user} = useSelector((state:any) => state.auth)
+    const imageUrl = "https://icon-library.com/images/none-icon/none-icon-0.jpg";
     
 
     
@@ -30,7 +31,7 @@ const Comments:FunctionComponent<Props> = (props) => {
             
             <div className="comment"  key={index}>
             <div className="commentAutor">
-            <img src={comment.user.profilePic} />
+            <img src={comment.user.image ? `data:image/jpeg;base64,${comment.user?.image?.picByte}` : imageUrl} />
             </div>
             <div className="commentContent">
             {comment.message}

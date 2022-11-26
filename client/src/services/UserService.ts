@@ -29,4 +29,27 @@ export class UserService {
         return null;
       }
     }
+
+
+
+    static async updateUserAccount(id:number, user:UserDto) : Promise<UserDto|null> {
+      try {
+        const response = await axios.put(`${BASE_URL}/users/${id}`, user);
+        return response.data;
+      } catch (error) {
+        console.log(error);
+        return null;
+      }
+    }
+
+
+    static async deleteUserAccount(id: number): Promise<string|null> {
+     try {
+      const response = await axios.delete(`${BASE_URL}/users/${id}`);
+      return response.data;
+     } catch (error) {
+      console.log(error);
+      return null;
+     }
+    }
 }

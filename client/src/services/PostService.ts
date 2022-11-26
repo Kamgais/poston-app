@@ -57,6 +57,21 @@ export class PostService {
     }
 
 
+
+    static async getPostByUserId(id:number):Promise<PostDto[]|null> {
+        try {
+           const response = await axios.get(`${BASE_URL}/posts/user/${id}`);
+           return response.data;
+        } catch (error) {
+            console.log(error);
+            return null;
+            
+        }
+    }
+
+
+
+
     static async likePost(id:number, likeIndex:number):Promise<string|null> {
         try {
             const response = await axios.get(`${BASE_URL}/posts/like/${id}/${likeIndex}`);

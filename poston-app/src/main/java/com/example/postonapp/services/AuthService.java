@@ -17,7 +17,8 @@ public class AuthService {
     @Autowired
   private  IUserRepository userRepository;
 
-    UserMapper userMapper = new UserMapper();
+    @Autowired
+    private UserMapper userMapper;
 
 
 

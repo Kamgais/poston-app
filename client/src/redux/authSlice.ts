@@ -23,12 +23,16 @@ export const authSlice = createSlice({
         signIn: (state,action) => {
            state.user = action.payload;
            state.logged = true;
+
+           return state;
            
         },
 
         signOut: (state) => {
             state.user = null;
             state.logged = false;
+
+            return state;
            
         }
     }
