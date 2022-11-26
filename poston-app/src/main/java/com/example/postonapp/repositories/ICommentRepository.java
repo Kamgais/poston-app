@@ -17,4 +17,7 @@ public interface ICommentRepository extends CrudRepository<Comment,Long> {
 
     @Query("SELECT COUNT (c) FROM Comment c WHERE c.post.id = :id")
     Long countCommentByPostId(@Param("id") Long id);
+
+    @Query("SELECT c FROM Comment c WHERE c.user.id =:userId")
+    List<Comment> findCommentsByUserId(@Param("userId") Long userId);
 }

@@ -1,0 +1,78 @@
+.settings--container {
+  width: 80vw;
+  margin: 0 auto;
+  margin-top: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.settings--container .settings--container--profile {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 40px;
+  border: 4px solid;
+}
+.settings--container .settings--container--profile label {
+  position: absolute;
+  z-index: 100;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  color: #74b9ff;
+}
+.settings--container .settings--container--profile label:hover {
+  cursor: pointer;
+}
+.settings--container .settings--container--form {
+  width: 90%;
+  padding: 40px;
+  border: 1px solid rgb(219, 215, 215);
+}
+.settings--container .settings--container--form form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: "Roboto", sans-serif;
+}
+.settings--container .settings--container--form form input {
+  height: 50px;
+  border: 2px solid;
+  outline: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+}
+.settings--container .settings--container--form form .settings--container--form--actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+.settings--container .settings--container--form form .settings--container--form--actions button {
+  width: 20%;
+  height: 50px;
+  border: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  background: #74b9ff;
+  color: #ffffff;
+  transition: all 0.3s ease-out;
+}
+.settings--container .settings--container--form form .settings--container--form--actions button:hover {
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #74b9ff;
+  border: 2px solid;
+  font-size: 14px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}/*# sourceMappingURL=settings.css.map */

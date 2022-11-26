@@ -14,4 +14,7 @@ public interface ITagRepository extends CrudRepository<Tag,Long> {
 
     @Query("SELECT t FROM Tag t WHERE t.post.id =:id")
     List<Tag> findTagsByPostId(@Param("id") Long id);
+
+    @Query("SELECT t FROM Tag t WHERE t.user.id =:id")
+    List<Tag> findTagsByUserId(@Param("id") Long id);
 }

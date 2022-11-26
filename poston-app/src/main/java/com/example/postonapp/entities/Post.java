@@ -38,7 +38,7 @@ public class Post {
     private User user;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Image image;
 
 

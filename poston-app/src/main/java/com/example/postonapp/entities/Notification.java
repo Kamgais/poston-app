@@ -31,9 +31,9 @@ public class Notification {
 
  private boolean isRead;
 
- @ManyToOne(cascade = CascadeType.ALL)
+ @ManyToOne
  User user;
 
- @ManyToOne(cascade = CascadeType.ALL)
+ @ManyToOne
  Post post;
 }

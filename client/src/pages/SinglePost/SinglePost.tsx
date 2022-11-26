@@ -188,6 +188,7 @@ const SinglePost:FunctionComponent = () => {
     const deletePost = async () => {
      const response =  await PostService.deletePost(post?.id!);
       handleNotification('success', response!)
+      navigate('/posts')
     }
    
     useEffect(() => {

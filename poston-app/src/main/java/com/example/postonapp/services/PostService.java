@@ -2,9 +2,7 @@ package com.example.postonapp.services;
 
 
 import com.example.postonapp.dtos.PostDto;
-import com.example.postonapp.entities.Category;
-import com.example.postonapp.entities.Notification;
-import com.example.postonapp.entities.Post;
+import com.example.postonapp.entities.*;
 
 import com.example.postonapp.mappers.CategoryMapper;
 import com.example.postonapp.mappers.PostMapper;
@@ -44,6 +42,10 @@ public class PostService {
 
     @Autowired
     IImageRepository imageRepository;
+
+
+    @Autowired
+    ITagRepository tagRepository;
 
     // get all posts
     public ResponseEntity<List<PostDto>> getAllPost() {
@@ -100,9 +102,14 @@ public class PostService {
         Optional<Post> post = postRepository.findById(id);
         if (post.isPresent()) {
             List<Notification> notifs = notificationRepository.findAllByPostId(post.get().getId());
+            List<Comment> comments = commentRepository.findCommentByPostId(post.get().getId());
+            List<Tag> tags = tagRepository.findTagsByPostId(post.get().getId());
+            tagRepository.deleteAll(tags);
             notificationRepository.deleteAll(notifs);
-            imageRepository.deleteById(post.get().getImage().getId());
+            commentRepository.deleteAll(comments);
             postRepository.deleteById(id);
+            imageRepository.deleteById(post.get().getImage().getId());
+
             message = " Post deleted sucessful";
             return ResponseEntity.ok().body(message);
         }
@@ -154,6 +161,12 @@ public class PostService {
     public ResponseEntity<List<PostDto>> getPostByTitle(String postTitle) {
         List<Post> posts = postRepository.findPostByTitle(postTitle);
         return ResponseEntity.ok().body(posts.stream().limit(8).map(e -> postMapper.toDto(e)).collect(Collectors.toList()));
+    }
+
+    public ResponseEntity<List<PostDto>> getPostsByUserId (Long id) {
+        List<Post> posts = postRepository.findPostsByUserId(id);
+
+        return ResponseEntity.ok().body(posts.stream().map(e-> postMapper.toDto(e)).collect(Collectors.toList()));
     }
 
 }

@@ -25,9 +25,15 @@ public class PostMapper implements  Mapper<Post, PostDto>{
     private final ICategoryRepository categoryRepository;
     private final IImageRepository imageRepository;
 
-    CategoryMapper categoryMapper = new CategoryMapper();
-    UserMapper userMapper = new UserMapper();
-    ImageMapper imageMapper = new ImageMapper();
+
+    @Autowired
+    CategoryMapper categoryMapper ;
+
+    @Autowired
+    UserMapper userMapper ;
+
+    @Autowired
+    ImageMapper imageMapper;
 
 
     @Autowired

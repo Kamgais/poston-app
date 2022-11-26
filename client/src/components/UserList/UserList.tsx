@@ -13,6 +13,7 @@ type Props = {
 }
 const UserList:FunctionComponent<Props> = ({username, setTags,setUsername,tags}) => {
     const [users,setUsers] = useState<UserDto[]|null>();
+    const imageUrl = "https://icon-library.com/images/none-icon/none-icon-0.jpg";
 
 
     const fetchUsers = async() => {
@@ -45,7 +46,7 @@ const UserList:FunctionComponent<Props> = ({username, setTags,setUsername,tags})
             {
                 users?.map((user:any, index) => (
                     <div  className='userList' onClick={() =>selectUserTag(user)}  key={index}>
-                        <img src={user.profilePic} alt="" />
+                        <img src={user.image ? `data:image/jpeg;base64,${user?.image?.picByte}` : imageUrl} alt="" />
                     <p className="userListElementUsername">
                     {user.username}
             </p>
