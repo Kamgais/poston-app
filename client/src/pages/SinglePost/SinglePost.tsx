@@ -22,7 +22,7 @@ const SinglePost:FunctionComponent = () => {
     const dispatch:Dispatch<(dispatch: any) => Promise<null | undefined>> = useDispatch<any>();
     const navigate = useNavigate();
     const {user} = useSelector((state:any) => state.auth)
-    const posts = useSelector((state:any) => state.posts);
+    //const posts = useSelector((state:any) => state.posts);
     const {handleNotification} = useContext(notificationContext);
     const [post,setPost] = useState<PostDto|null>();
     const [commentCount, setCommentCount] = useState<number|null>(0);
@@ -75,7 +75,7 @@ const SinglePost:FunctionComponent = () => {
       if(comment?.message !== '' && comment) {
         const response =  await CommentService.saveComment(comment!);
         commentRef.current!.value = '';
-        handleNotification('success', 'successful commented');
+       // handleNotification('success', 'successful commented');
        console.log(response)
           // @ts-ignore
           setComments(function (prevState: CommentDto[] | null) {
@@ -105,6 +105,8 @@ const SinglePost:FunctionComponent = () => {
         post: post!,
         read: false
       })
+
+      navigate(0);
       
      }
 
@@ -199,7 +201,7 @@ const SinglePost:FunctionComponent = () => {
      
      
     
-    },[])
+    },[id, ])
   
 
     useEffect(() => {
