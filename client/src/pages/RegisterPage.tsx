@@ -13,7 +13,7 @@ const RegisterPage:FunctionComponent = () => {
         backgroundSize: 'cover'
     }
   return (
-    <div    style={containerStyles} className='registerContainer'>
+    <div style={containerStyles} className='registerContainer'>
       <Form type='register'/>
     </div>
   )
