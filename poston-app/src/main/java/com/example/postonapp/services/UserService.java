@@ -5,7 +5,6 @@ import com.example.postonapp.dtos.UserDto;
 import com.example.postonapp.entities.*;
 import com.example.postonapp.mappers.UserMapper;
 import com.example.postonapp.repositories.*;
-import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
