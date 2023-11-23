@@ -94,7 +94,7 @@ export class PostService {
         }
     }
 
-    static async getPostByCategoryName(categoryName: String):Promise<PostDto[]|null> {
+    static async getPostByCategoryName(categoryName: string):Promise<PostDto[]|null> {
         try {
             const response = await axios.get(`${BASE_URL}/posts/categories?categoryName=${categoryName}`);
             return response.data;

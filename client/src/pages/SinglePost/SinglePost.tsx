@@ -81,7 +81,7 @@ const SinglePost:FunctionComponent = () => {
           setComments(function (prevState: CommentDto[] | null) {
               return [...prevState!, response];
           });
-      // navigate(0)
+       navigate(0)
       await NotificationService.createNotif({
         message: `${user.username} comment the post ${post?.title}`,
         dateCreated: new Date(),

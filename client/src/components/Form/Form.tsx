@@ -46,8 +46,8 @@ const Form:FunctionComponent<Props> = ({type}) => {
         setValidMessage(isFormValid.msg)
         AuthService.saveUser(user!)
         .then((response) => {
-           if(!response) { handleNotification('error', 'error while creating a account!')}
-          if(response) {handleNotification('success', 'successfull account created !')
+           if(!response) { handleNotification('error', 'error while creating a account!') }
+          if(response) { handleNotification('success', 'successfull account created !')
           navigate('/login') 
         }
          
