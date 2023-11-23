@@ -31,7 +31,7 @@ export const authSlice = createSlice({
         signOut: (state) => {
             state.user = null;
             state.logged = false;
-
+           localStorage.setItem('persist:main-root', JSON.stringify(null))
             return state;
            
         }

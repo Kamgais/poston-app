@@ -46,8 +46,8 @@ const Form:FunctionComponent<Props> = ({type}) => {
         setValidMessage(isFormValid.msg)
         AuthService.saveUser(user!)
         .then((response) => {
-           if(!response) { handleNotification('error', 'error while creating a account!')}
-          if(response) {handleNotification('success', 'successfull account created !')
+           if(!response) { handleNotification('error', 'error while creating a account!') }
+          if(response) { handleNotification('success', 'successfull account created !')
           navigate('/login') 
         }
          
@@ -81,11 +81,12 @@ const Form:FunctionComponent<Props> = ({type}) => {
 
 
     // validate username
-    if(user?.username!.length! < 6 || user?.username!.length! > 30) {
+    if(user?.username?.length === 0 || user?.username!.length! < 6 || user?.username!.length! > 30) {
       return { valid : false , msg: 'username must have 6 to 30 letters'}
     }
 
 
+    
     // validate email
     if(!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(user?.emailAddress!))  {
       return { valid: false , msg: 'email address is not valid'}

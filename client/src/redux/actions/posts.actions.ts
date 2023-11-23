@@ -14,7 +14,7 @@ export const getAllPosts = () => async(dispatch:any) => {
 }
 
 
-export const getPostByCategoryName = (categoryName: String) => async(dispatch:any) => {
+export const getPostByCategoryName = (categoryName: string) => async(dispatch:any) => {
     try {
         const response = await PostService.getPostByCategoryName(categoryName);
         dispatch(getPosts(response))
