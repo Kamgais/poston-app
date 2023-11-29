@@ -8,8 +8,10 @@ import com.startuper.postonapp.mappers.CategoryMapper;
 import com.startuper.postonapp.mappers.PostMapper;
 import com.startuper.postonapp.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,28 +50,29 @@ public class PostService {
     ITagRepository tagRepository;
 
     // get all posts
-    public ResponseEntity<List<PostDto>> getAllPost() {
+    public List<PostDto> getAllPost() {
 
 
 
         List<Post> posts = (List<Post>) postRepository.findAll();
         List<PostDto> postDtos = posts.stream().map(e -> postMapper.toDto(e)).collect(Collectors.toList());
-        return ResponseEntity.ok().body(postDtos);
+        return postDtos;
     }
 
     // get post by id
-    public ResponseEntity<PostDto> getPostById(Long id) {
+    public PostDto getPostById(Long id) {
 
         Optional<Post> post = postRepository.findById(id);
 
         if (post.isPresent()) {
-            return ResponseEntity.ok().body(postMapper.toDto(post.get()));
+            return postMapper.toDto(post.get());
         } else {
-            return ResponseEntity.badRequest().build();
+            // TODO : errors handling
+            return null;
         }
     }
 
-    public ResponseEntity<PostDto> updatePost(Long id, PostDto updatedPost) {
+    public PostDto updatePost(Long id, PostDto updatedPost) {
         Optional<Post> post = postRepository.findById(id);
         Post toPost = postMapper.toEntity(updatedPost);
         if (post.isPresent()) {
@@ -83,21 +86,22 @@ public class PostService {
             newPost.setCategories(toPost.getCategories());
 
 
-            return ResponseEntity.ok().body(postMapper.toDto(postRepository.save(newPost)));
+            return postMapper.toDto(postRepository.save(newPost));
         }
-
-        return ResponseEntity.badRequest().build();
+        // TODO : errors handling
+        return null;
 
     }
 
 
     // add a new post
-    public ResponseEntity<PostDto> addPost(PostDto post) {
+
+    public PostDto addPost(PostDto post) {
         Post newPost = postRepository.save(postMapper.toEntity(post));
-        return ResponseEntity.ok().body(postMapper.toDto(newPost));
+        return postMapper.toDto(newPost);
     }
 
-    public ResponseEntity<String> deletePost(Long id) {
+    public void deletePost(Long id) {
         String message;
         Optional<Post> post = postRepository.findById(id);
         if (post.isPresent()) {
@@ -110,11 +114,8 @@ public class PostService {
             postRepository.deleteById(id);
             imageRepository.deleteById(post.get().getImage().getId());
 
-            message = " Post deleted sucessful";
-            return ResponseEntity.ok().body(message);
         }
-        message = "no post found with this id";
-        return ResponseEntity.ok().body(message);
+
     }
 
 

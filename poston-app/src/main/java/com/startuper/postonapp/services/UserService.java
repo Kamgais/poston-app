@@ -42,12 +42,12 @@ public class UserService {
     }
 
 
-    public ResponseEntity<UserDto> getUserById(Long id) {
+    public UserDto getUserById(Long id) {
         Optional<User> user = userRepository.findById(id);
-        return ResponseEntity.ok().body(userMapper.toDto(user.get()));
+        return (userMapper.toDto(user.get()));
     }
 
-    public ResponseEntity<UserDto> updateUser(Long id, UserDto updatedUser) {
+    public UserDto updateUser(Long id, UserDto updatedUser) {
         Optional<User> dbUser = userRepository.findById(id);
         User user = userMapper.toEntity(updatedUser);
         user.setPassword(dbUser.get().getPassword());
@@ -55,30 +55,35 @@ public class UserService {
         User newUser = userRepository.save(user);
 
 
-        return ResponseEntity.ok().body(userMapper.toDto(newUser));
+        return userMapper.toDto(newUser);
 
 
     }
 
 
-    public ResponseEntity<String> deleteUser(Long id) {
+    public String deleteUser(Long id) {
         Optional<User> user = userRepository.findById(id);
 
         if(user == null) {
-            return ResponseEntity.badRequest().build();
+            // TODO : errors handling
+            return null;
         } else  {
            List<Post> posts =  postRepository.findPostsByUserId(id);
            List<Notification> notifs = notificationRepository.findAllByUserId(id);
            List<Comment> comments = commentRepository.findCommentsByUserId(id);
            List<Tag> tags = tagRepository.findTagsByUserId(id);
-           posts.stream().forEach(e-> postService.deletePost(e.getId()));
            notificationRepository.deleteAll(notifs);
            commentRepository.deleteAll(comments);
            tagRepository.deleteAll(tags);
-            Image image = imageRepository.findImageByName(user.get().getImage().getName());
+           postRepository.deleteAll(posts);
+
+           if(user.get().getImage() != null) {
+               imageRepository.deleteById(user.get().getImage().getId());
+           }
+
            userRepository.deleteById(id);
-           imageRepository.deleteById(image.getId());
-            return ResponseEntity.ok().body("account deleted");
+
+            return "account deleted";
         }
     }
 }
