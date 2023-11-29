@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Builder
-@Table(name = "user")
+@Table(name = "\"user\"")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -26,15 +26,17 @@ public class AuthService {
     /*
     * create a account
      */
-    public ResponseEntity<UserDto> createAUser(UserDto userDto) {
+    public UserDto createAUser(UserDto userDto) {
 
         User newUser = userMapper.toEntity(userDto);
         if (emailExist(userDto.getEmailAddress())) {
-            return ResponseEntity.badRequest().build();
+            // TODO : errors handling
+            return null;
         }
 
-        if(userDto.getPassword().length() < 6) {
-           return ResponseEntity.badRequest().build();
+        if(userDto.getPassword().length() < 3) {
+            // TODO : errors handling
+           return null;
         }
 
         try {
@@ -43,14 +45,14 @@ public class AuthService {
         } catch (Error error) {
             System.out.println(error);
         }
-        return  ResponseEntity.ok().body(userMapper.toDto(newUser));
+        return  userMapper.toDto(newUser);
     }
 
     /*
     * exist email
      */
     public boolean emailExist(String email) {
-        User user = userRepository.findUserByEmailAddress(email);
+        Optional<User> user = userRepository.findUserByEmailAddress(email);
         if(user != null) {
             return true;
         } else {
@@ -62,15 +64,17 @@ public class AuthService {
     /*
     * login email
      */
-    public ResponseEntity<UserDto> loginAUser(UserDto userDto) {
-        User fetchUser = userRepository.findUserByEmailAddress(userDto.getEmailAddress());
+    public UserDto loginAUser(UserDto userDto) {
+        User fetchUser = userRepository.findUserByEmailAddress(userDto.getEmailAddress()).get();
         if(fetchUser == null) {
-            return ResponseEntity.badRequest().build();
+            // TODO : errors handling
+            return null;
         } else if(!fetchUser.getPassword().equals(userDto.getPassword())) {
-          return ResponseEntity.badRequest().build();
+            // TODO : errors handling
+          return null;
         } else {
             UserDto loggedUser = userMapper.toDto(fetchUser);
-            return ResponseEntity.ok().body(loggedUser);
+            return loggedUser;
         }
     }
 

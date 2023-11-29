@@ -5,9 +5,12 @@ import com.startuper.postonapp.dtos.PostDto;
 import com.startuper.postonapp.entities.Post;
 import com.startuper.postonapp.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -23,19 +26,19 @@ public class PostController {
         if(title != null) {
           return postService.getPostByTitle(title);
         } else {
-            return postService.getAllPost();
+            return ResponseEntity.ok().body(postService.getAllPost());
         }
 
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PostDto> findPostById(@PathVariable Long id) {
-        return postService.getPostById(id);
+        return ResponseEntity.ok().body(postService.getPostById(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<PostDto> updatePost(@PathVariable("id") Long id , @RequestBody PostDto postDto) {
-        return postService.updatePost(id,postDto);
+        return ResponseEntity.ok().body(postService.updatePost(id,postDto));
     }
 
 
@@ -56,13 +59,19 @@ public class PostController {
 
 
     @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
-        return postService.addPost(postDto);
+
+        try {
+            return ResponseEntity.created(new URI("/api/posts")).body(postService.addPost(postDto));
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletePost(@PathVariable("id") Long id) {
-        return postService.deletePost(id);
+    public void deletePost(@PathVariable("id") Long id) {
+        postService.deletePost(id);
     }
 
     @GetMapping("/user/{id}")
