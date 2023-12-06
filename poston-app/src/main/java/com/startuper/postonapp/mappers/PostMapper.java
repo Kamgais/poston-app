@@ -3,9 +3,7 @@ package com.startuper.postonapp.mappers;
 import com.startuper.postonapp.dtos.PostDto;
 import com.startuper.postonapp.entities.*;
 import com.startuper.postonapp.repositories.ICategoryRepository;
-import com.startuper.postonapp.repositories.IImageRepository;
 import com.startuper.postonapp.repositories.IUserRepository;
-import com.startuper.postonapp.services.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +21,7 @@ public class PostMapper implements  Mapper<Post, PostDto>{
 
    private final IUserRepository userRepository;
     private final ICategoryRepository categoryRepository;
-    private final IImageRepository imageRepository;
+
 
 
     @Autowired
@@ -32,12 +30,7 @@ public class PostMapper implements  Mapper<Post, PostDto>{
     @Autowired
     UserMapper userMapper ;
 
-    @Autowired
-    ImageMapper imageMapper;
 
-
-    @Autowired
-    private ImageService imageService;
 
 
 
@@ -48,7 +41,7 @@ public class PostMapper implements  Mapper<Post, PostDto>{
     @Override
     public Post toEntity(PostDto postDto) {
         Optional<User> user = userRepository.findById(postDto.getUser().getId());
-        Optional<Image> image = imageRepository.findById(postDto.getImage().getId());
+
 
 
 
@@ -64,7 +57,7 @@ public class PostMapper implements  Mapper<Post, PostDto>{
                 .unlikeCount(postDto.getUnlikeCount())
                 .dateCreated(postDto.getDateCreated())
                 .user(user.get())
-                .image(image.get())
+                .postImage(postDto.getPostImage())
                 .categories(postDto.getCategories().stream().map(e -> categoryRepository.findCategoryByCategoryName(e.getCategoryName())).collect(Collectors.toList()))
                 .build();
     }
@@ -84,7 +77,7 @@ public class PostMapper implements  Mapper<Post, PostDto>{
                .unlikeCount(post.getUnlikeCount())
                .dateCreated(post.getDateCreated())
                .user(userMapper.toDto(post.getUser()))
-               .image(imageService.getImage(post.getImage().getName()))
+               .postImage(post.getPostImage())
                .categories(post.getCategories().stream().map(e -> categoryMapper.toDto(e)).collect(Collectors.toList()))
                .build();
     }

@@ -35,8 +35,7 @@ public class UserServiceTest {
     @Mock
     private ITagRepository tagRepository;
 
-    @Mock
-    private IImageRepository imageRepository;
+
 
     @Mock
     private INotificationRepository notificationRepository;
@@ -124,7 +123,7 @@ public class UserServiceTest {
         List<Notification> notificationList = Mockito.mock(List.class);
         List<Tag> tagList = Mockito.mock(List.class);
         List<Comment> commentList = Mockito.mock(List.class);
-        Image image = Mockito.mock(Image.class);
+
 
         when(userRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(user));
         when(postRepository.findPostsByUserId(Mockito.any(Long.class))).thenReturn(postList);

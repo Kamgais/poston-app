@@ -39,11 +39,7 @@ public class PostService {
     @Autowired
     ICommentRepository commentRepository;
 
-    @Autowired
-    ImageService imageService;
 
-    @Autowired
-    IImageRepository imageRepository;
 
 
     @Autowired
@@ -82,7 +78,7 @@ public class PostService {
             newPost.setDateCreated(toPost.getDateCreated());
             newPost.setLikeCount(toPost.getLikeCount());
             newPost.setUnlikeCount(toPost.getUnlikeCount());
-            newPost.setImage(toPost.getImage());
+            newPost.setPostImage(toPost.getPostImage());
             newPost.setCategories(toPost.getCategories());
 
 
@@ -112,7 +108,6 @@ public class PostService {
             notificationRepository.deleteAll(notifs);
             commentRepository.deleteAll(comments);
             postRepository.deleteById(id);
-            imageRepository.deleteById(post.get().getImage().getId());
 
         }
 
