@@ -34,8 +34,8 @@ public class User {
 
 
 
-    @OneToOne
-    private Image image;
+
+    private String profilePic;
 
 
 

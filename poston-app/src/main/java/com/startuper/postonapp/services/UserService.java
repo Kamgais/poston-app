@@ -29,8 +29,7 @@ public class UserService {
 
     @Autowired
     ITagRepository tagRepository;
-    @Autowired
-    IImageRepository imageRepository;
+
 
     @Autowired
     UserMapper userMapper;
@@ -77,8 +76,8 @@ public class UserService {
            tagRepository.deleteAll(tags);
            postRepository.deleteAll(posts);
 
-           if(user.get().getImage() != null) {
-               imageRepository.deleteById(user.get().getImage().getId());
+           if(user.get().getProfilePic() != null) {
+             // TODO: delete from aws s3 bucket
            }
 
            userRepository.deleteById(id);

@@ -37,9 +37,7 @@ public class Post {
     @ManyToOne
     private User user;
 
-
-    @OneToOne
-    private Image image;
+    private String postImage;
 
 
 

@@ -21,6 +21,5 @@ public class UserDto {
     private String emailAddress;
     private String password;
     private String profilePic;
-    private ImageDto image;
 
 }
