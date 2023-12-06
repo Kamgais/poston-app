@@ -1,0 +1,25 @@
+cloud:
+  aws:
+    credentials:
+      access-key: AKIA3SUNHINQNJLGWTOP
+      secret-key: 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
+    region:
+      static: us-east-1
+    stack:
+      auto: false
+
+application:
+  bucket:
+    name: postonstorage
+
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2MB
+      max-file-size: 5MB
+      max-request-size: 10MB
+
+
+server:
+  port: 8080

@@ -23,7 +23,7 @@ public class PostDto {
     private Long likeCount;
     private Long unlikeCount;
     private UserDto user;
-    private ImageDto image;
+    private String postImage;
     private List<CategoryDto> categories;
 
 }
