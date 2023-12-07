@@ -1,0 +1,33 @@
+[
+  {
+    "username": "john_doe",
+    "emailAddress": "john.doe@example.com",
+    "password": "password123",
+    "profilePic": "https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&w=1600"
+  },
+  {
+    "username": "jane_smith",
+    "emailAddress": "jane.smith@example.com",
+    "password": "securePass",
+    "profilePic": "https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&w=1600"
+  },
+  {
+    "username": "bob_jones",
+    "emailAddress": "bob.jones@example.com",
+    "password": "pass123",
+    "profilePic": "https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&w=1600"
+  },
+  {
+    "username": "alice_green",
+    "emailAddress": "alice.green@example.com",
+    "password": "greenTea",
+    "profilePic": "https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&w=1600"
+  },
+  {
+    "username": "sam_wilson",
+    "emailAddress": "sam.wilson@example.com",
+    "password": "captainAmerica",
+    "profilePic": "https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&w=1600"
+  }
+]
+

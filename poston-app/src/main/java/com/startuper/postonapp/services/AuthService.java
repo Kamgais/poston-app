@@ -53,7 +53,7 @@ public class AuthService {
      */
     public boolean emailExist(String email) {
         Optional<User> user = userRepository.findUserByEmailAddress(email);
-        if(user != null) {
+        if(user.isPresent()) {
             return true;
         } else {
             return false;

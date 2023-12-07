@@ -40,7 +40,7 @@ public class PostMapper implements  Mapper<Post, PostDto>{
 
     @Override
     public Post toEntity(PostDto postDto) {
-        Optional<User> user = userRepository.findById(postDto.getUser().getId());
+        Optional<User> user = userRepository.findById(postDto.getUserId());
 
 
 
@@ -58,7 +58,7 @@ public class PostMapper implements  Mapper<Post, PostDto>{
                 .dateCreated(postDto.getDateCreated())
                 .user(user.get())
                 .postImage(postDto.getPostImage())
-                .categories(postDto.getCategories().stream().map(e -> categoryRepository.findCategoryByCategoryName(e.getCategoryName())).collect(Collectors.toList()))
+                .categories(postDto.getCategories().stream().map(e -> categoryRepository.findCategoryByCategoryName(e)).collect(Collectors.toList()))
                 .build();
     }
 
@@ -76,9 +76,9 @@ public class PostMapper implements  Mapper<Post, PostDto>{
                .likeCount(post.getLikeCount())
                .unlikeCount(post.getUnlikeCount())
                .dateCreated(post.getDateCreated())
-               .user(userMapper.toDto(post.getUser()))
+               .userId(post.getUser().getId())
                .postImage(post.getPostImage())
-               .categories(post.getCategories().stream().map(e -> categoryMapper.toDto(e)).collect(Collectors.toList()))
+               .categories(post.getCategories().stream().map(e -> e.getCategoryName()).collect(Collectors.toList()))
                .build();
     }
 }

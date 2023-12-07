@@ -23,6 +23,6 @@ public class CategoryController {
 
     @GetMapping("")
     public ResponseEntity<List<CategoryDto>> getAllCategories() {
-        return categoryService.getAllCategories();
+        return ResponseEntity.ok().body(categoryService.getAllCategories());
     }
 }

@@ -51,6 +51,9 @@ public class PostService {
 
 
         List<Post> posts = (List<Post>) postRepository.findAll();
+        if(posts.isEmpty()) {
+            return new ArrayList<>();
+        }
         List<PostDto> postDtos = posts.stream().map(e -> postMapper.toDto(e)).collect(Collectors.toList());
         return postDtos;
     }
@@ -95,6 +98,13 @@ public class PostService {
     public PostDto addPost(PostDto post) {
         Post newPost = postRepository.save(postMapper.toEntity(post));
         return postMapper.toDto(newPost);
+    }
+
+    public List<PostDto> addPosts(List<PostDto> dtos) {
+        List<Post> posts = dtos.stream().map(dt -> postMapper.toEntity(dt)).collect(Collectors.toList());
+        postRepository.saveAll(posts);
+        List<PostDto> dtoSaved = posts.stream().map(dt -> postMapper.toDto(dt)).collect(Collectors.toList());
+        return dtoSaved;
     }
 
     public void deletePost(Long id) {
