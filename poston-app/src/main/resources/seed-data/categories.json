@@ -1,0 +1,32 @@
+[
+  {
+
+    "categoryName": "cars",
+    "categoryIcon": "fa-solid fa-car-side"
+  },
+  {
+
+    "categoryName": "life-style",
+    "categoryIcon": "fa-solid fa-palette"
+  },
+  {
+
+    "categoryName": "music",
+    "categoryIcon": "fa-solid fa-guitar"
+  },
+  {
+
+    "categoryName": "science",
+    "categoryIcon": "fa-solid fa-flask"
+  },
+  {
+
+    "categoryName": "sport",
+    "categoryIcon": "fa-solid fa-baseball-bat-ball"
+  },
+  {
+
+    "categoryName": "informatic",
+    "categoryIcon": "fa-solid fa-computer"
+  }
+]
