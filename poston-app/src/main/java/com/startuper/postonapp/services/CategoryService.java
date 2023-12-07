@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,13 +23,19 @@ public class CategoryService {
     @Autowired
     CategoryMapper categoryMapper;
 
-    public ResponseEntity<List<CategoryDto>> getAllCategories () {
+    public List<CategoryDto> getAllCategories () {
         List<Category> categories = (List<Category>)categoryRepository.findAll();
         if(!categories.isEmpty()) {
             List<CategoryDto> categoryDtos = categories.stream().map(e -> categoryMapper.toDto(e)).collect(Collectors.toList());
-            return ResponseEntity.ok().body(categoryDtos);
+            return categoryDtos;
         } else {
-            return ResponseEntity.badRequest().build();
+            return new ArrayList<>();
         }
+    }
+
+    public List<Category> saveCategories(List<Category> categories) {
+      List<Category> cats = (List<Category>) categoryRepository.saveAll(categories);
+      return cats;
+
     }
 }

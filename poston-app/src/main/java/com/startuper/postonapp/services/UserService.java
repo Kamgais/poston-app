@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,6 +45,30 @@ public class UserService {
     public UserDto getUserById(Long id) {
         Optional<User> user = userRepository.findById(id);
         return (userMapper.toDto(user.get()));
+    }
+
+    public List<UserDto> getAllUsers() {
+        List<User> userList = (List<User>) userRepository.findAll();
+        if(userList.isEmpty()) {
+            return new ArrayList<>();
+        }
+        List<UserDto> dtos =  userList.stream().map(u -> {
+            UserDto dto = userMapper.toDto(u);
+            return dto;
+        }).collect(Collectors.toList());
+
+        return dtos;
+    }
+
+
+    public List<UserDto> saveUsers(List<User> toSave) {
+        List<UserDto> saved = new ArrayList<>();
+        toSave.forEach(ts -> {
+
+           User userSaved = userRepository.save(ts);
+           saved.add(userMapper.toDto(userSaved));
+        });
+        return saved;
     }
 
     public UserDto updateUser(Long id, UserDto updatedUser) {
