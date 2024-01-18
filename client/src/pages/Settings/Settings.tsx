@@ -22,7 +22,7 @@ const Settings: FunctionComponent = () => {
                                                username : user.username,
                                                emailAddress: user.emailAddress,
                                                password: '',
-                                               image: user.image
+                                               profilePic: user.image
 
     })
     const imageUrl = "https://icon-library.com/images/none-icon/none-icon-0.jpg";
@@ -69,19 +69,19 @@ const Settings: FunctionComponent = () => {
             console.log(data)
 
             const response = await ImageService.uploadImage(data);
-            console.log(response)
-            newImage = await ImageService.getImage(response?.name!)
+            // console.log(response)
+            // newImage = await ImageService.getImage(response?.name!)
         }
 
         if(!file && user.image) {
-            newImage = user.image;
+            newImage = user.profilePic;
         }
 
         if(!file && !user.image) {
             newImage = null;
         }
 
-        const newUser = {...updatedUser, image: newImage};
+        const newUser = {...updatedUser, profilePic: newImage};
         const response = await UserService.updateUserAccount(user.id, newUser);
         dispatch(signIn(response));
 
@@ -110,7 +110,7 @@ const Settings: FunctionComponent = () => {
   return (
     <div className='settings--container'>
        <div className="settings--container--profile">
-        <img src={file? URL.createObjectURL(file!) : user.image ? `data:image/jpeg;base64,${user?.image?.picByte}` : imageUrl} alt="" />
+        <img src={file? URL.createObjectURL(file!) : user.profilePic ? user?.profilePic : imageUrl} alt="" />
         <label htmlFor="profile-img"><i className="fa-solid fa-circle-plus"></i></label>
         <input  type="file"  id='profile-img'   style={{display: 'none'}}  onChange={(e) => setFile(e.target.files![0])}/>
         </div> 

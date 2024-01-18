@@ -30,20 +30,20 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
     const {handleNotification} = useContext(notificationContext);
     const navigate = useNavigate();
     const [categories, setCategories] = useState<CategoryDto[]|null>();
-    const [selectedCategories, setSelectedCategories] = useState<CategoryDto[]>([]);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [file,setFile] = useState<File|null>(null);
     const [post, setPost] = useState<PostDto|null>({
                                 title: '',
                                 dateCreated: new Date(),
                                 likeCount: 0,
                                 unlikeCount:  0,
-                                user: user,
+                                userId: user.id,
                                 categories: [],
                                 content: ''
 
 
     });
-    const [image,setImage] = useState<ImageDto|null>();
+    const [image,setImage] = useState<string|null>();
     const [usernameSearched, setUsernameSearch] = useState<string>('');
     const [tags, setTags] = useState<TagDto[]|null>([]);
     const imageUrl = "https://icon-library.com/images/none-icon/none-icon-0.jpg";
@@ -78,7 +78,7 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
     dateCreated: body? body?.dateCreated : new Date(),
     likeCount: body? body.likeCount : 0,
     unlikeCount: body? body?.unlikeCount : 0,
-    user: user,
+    userId: user.id,
     categories: body ? body.categories : [],
     content: body? body.content : ''
 })
@@ -102,21 +102,21 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
     const onCategoriesArray = (e:React.ChangeEvent<HTMLInputElement>) => {
         let exist : boolean = false;
         let categoryIndex: number;
-        selectedCategories?.forEach((category: CategoryDto, index: number) => {
-            if(e.target.name === category.categoryName) {
+        selectedCategories?.forEach((category: string, index: number) => {
+            if(e.target.name === category) {
                 exist = true;
                 categoryIndex = index;
             }
         })
 
         if(exist){
-          const newArrayCategories:CategoryDto[] = selectedCategories.filter((category: CategoryDto) => category.categoryName !== e.target.name);
+          const newArrayCategories:string[] = selectedCategories.filter((category: string) => category !== e.target.name);
           setSelectedCategories(newArrayCategories);
          // console.log(selectedCategories)
         }
 
         if(!exist) {
-            const newArrayCategories:CategoryDto[] = [...selectedCategories, {categoryName: e.target.name}];
+            const newArrayCategories:string[] = [...selectedCategories, e.target.name];
             setSelectedCategories(newArrayCategories);
          //   console.log(selectedCategories)
         }
@@ -192,24 +192,24 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
             const response = await ImageService.uploadImage(data);
             console.log(response)
 
-            setImage(response);
-             newImage = await ImageService.getImage(response?.name!)
+           newImage = response;
+         //    newImage = await ImageService.getImage(response?.name!)
 
-            setImage(newImage);
+         //   setImage(newImage);
 
         }
 
          if(body && file) {
-          newPost = {...post, categories: selectedCategories, image: newImage!, id: body.id}
+          newPost = {...post, categories: selectedCategories, postImage: newImage!, id: body.id}
             
         }
 
         if(body && !file) {
-           newPost = {...post , categories: selectedCategories, image: body.image, id: body.id} 
+           newPost = {...post , categories: selectedCategories, postImage: body.postImage, id: body.id} 
         }
 
         if(!body && file) {
-            newPost = {...post , categories: selectedCategories, image: newImage}  
+            newPost = {...post , categories: selectedCategories, postImage: newImage}  
         }
 
 
@@ -256,9 +256,9 @@ return (
         {
             categories?.map((category:any, index: React.Key | null | undefined) => (
                 <div key={index}>
-                { type === 'UPDATE' &&  <input onChange={(e) => onCategoriesArray(e)} name={category.categoryName} type="checkbox"  checked= {selectedCategories.filter(e => e.id === category.id).length > 0 &&  true}/>}
+                { type === 'UPDATE' &&  <input onChange={(e) => onCategoriesArray(e)} name={category} type="checkbox"  checked= {selectedCategories.indexOf(category.categoryName) > -1}/>}
                 
-                {type === 'CREATE' && <input type= "checkbox" onChange={(e) => onCategoriesArray(e)} name={category.categoryName} />}
+                {type === 'CREATE' && <input type= "checkbox" onChange={(e) => onCategoriesArray(e)} name={category} />}
                 
                 <label className='categoryLabel'>{category.categoryName}</label>
                 
@@ -269,7 +269,7 @@ return (
       </div>
       <form className="createPostForm"  onSubmit={(e) => handleSubmit(e)}>
         <div className="postImage">
-            <img src={file?  URL.createObjectURL(file!) : body ? `data:image/jpeg;base64,${body?.image?.picByte}` : imageUrl} alt="" />
+            <img src={file?  URL.createObjectURL(file!) : body ?body?.postImage : imageUrl} alt="" />
             <label htmlFor="postImage"><i className="fa-solid fa-circle-plus"></i></label>
             <input type="file"  id='postImage' style={{display: 'none'}} onChange={(e) =>setFile(e.target.files![0])}/>
 

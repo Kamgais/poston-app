@@ -90,10 +90,10 @@ const Post:FunctionComponent<Props> = ({post}) => {
     <div className='postContainer'>
         <div className="categoriesLabels">
             {post.categories?.map((category) => (
-                <div >{category.categoryName}</div>
+                <div >{category}</div>
             ))}
         </div>
-      <img  onClick={() => navigate(`/posts/${post.id}`)} src={`data:image/jpg;base64,${post?.image?.picByte}`} alt="" />
+      <img  onClick={() => navigate(`/posts/${post.id}`)} src={post?.postImage} alt="" />
       <div className="postInfosContainer">
         <div className="postTitle">
             <h3>{post.title}</h3>

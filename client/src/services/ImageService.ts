@@ -5,9 +5,9 @@ import { ImageDto } from "../types/ImageDto";
 export class ImageService {
 
 
-    static async uploadImage(data: FormData):Promise<ImageDto|null> {
+    static async uploadImage(data: FormData):Promise<string|null> {
         try {
-            const response = await axios.post(`${BASE_URL}/images/upload`,data);
+            const response = await axios.post(`${BASE_URL}/storage`,data);
             return response.data;
         } catch (error) {
           console.log(error);

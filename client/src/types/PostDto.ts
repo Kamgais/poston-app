@@ -1,6 +1,4 @@
-import { CategoryDto } from "./CategoryDto";
-import { ImageDto } from "./ImageDto";
-import { UserDto } from "./UserDto";
+
 
 
 export interface PostDto {
@@ -10,8 +8,8 @@ export interface PostDto {
     content?:string,
     likeCount?:number,
     unlikeCount?:number,
-    user?:UserDto,
-    image?:ImageDto,
-    categories?: CategoryDto[]
+    userId?:number,
+    postImage?:string,
+    categories?: string[]
    
 }
