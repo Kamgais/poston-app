@@ -20,7 +20,7 @@ const ProfileImg:FunctionComponent<Props> = ({userId}) => {
       fetchUser().then((_) => {})
     },[])
   return (
-    <img className="notificationBannerImg"  src={user?.image ? `data:image/jpeg;base64,${user?.image?.picByte}` : imageUrl}/>
+    <img className="notificationBannerImg"  src={user?.profilePic ? user?.profilePic : imageUrl} alt=''/>
   )
 }
 

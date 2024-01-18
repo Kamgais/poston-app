@@ -20,9 +20,9 @@ const Comments:FunctionComponent<Props> = (props) => {
 
 
 
-    useEffect(() => {
-    //  fetchComments();
-    },[])
+    // useEffect(() => {
+    // //  fetchComments();
+    // },[])
   return (
     <>
 
@@ -31,7 +31,7 @@ const Comments:FunctionComponent<Props> = (props) => {
             
             <div className="comment"  key={index}>
             <div className="commentAutor">
-            <img src={comment.user.image ? `data:image/jpeg;base64,${comment.user?.image?.picByte}` : imageUrl} />
+            <img src={comment.user.image ? comment.user?.profilePic : imageUrl} />
             </div>
             <div className="commentContent">
             {comment.message}

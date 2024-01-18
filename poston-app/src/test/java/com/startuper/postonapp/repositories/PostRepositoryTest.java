@@ -19,6 +19,8 @@ import java.util.Optional;
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class PostRepositoryTest {
+
+    @Autowired
     private IPostRepository postRepository;
 
     @Autowired
@@ -27,10 +29,10 @@ public class PostRepositoryTest {
     @Autowired
     private ICategoryRepository categoryRepository;
 
-    @Autowired
-    public PostRepositoryTest(IPostRepository repository) {
-        this.postRepository = repository;
-    }
+ //   @Autowired
+  //  public PostRepositoryTest(IPostRepository repository) {
+  //      this.postRepository = repository;
+ //   }
 
     @Test
     public void IPostRepository_SaveAll_ReturnsSavedPost() {
