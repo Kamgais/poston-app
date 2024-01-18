@@ -95,7 +95,7 @@ const SinglePost:FunctionComponent = () => {
 
 
     const deleteComment = async(id: number) => {
-      const response = await CommentService.deleteComment(id);
+     await CommentService.deleteComment(id);
       handleNotification('success', 'successful deleted');
     
       await NotificationService.createNotif({
@@ -211,17 +211,17 @@ const SinglePost:FunctionComponent = () => {
   return (
     <div className='singlePostContainer'>
         <div className="singlePostImage">
-         <img src={`data:image/jpeg;base64,${post?.image?.picByte}`}/>
-         { post?.user?.id === user.id  && <div className="singlePostContainerActions">
+         <img src={post?.postImage}/>
+         { post?.userId === user.id  && <div className="singlePostContainerActions">
          <i className="fa-solid fa-pen-to-square" onClick={() => navigate(`/posts/update/${post?.id}`)}></i>
          <i className="fa-solid fa-trash-can" onClick={deletePost}></i>
          </div>}
          <div  style={{display: 'flex', justifyContent: 'space-between'}} className="author-infos">
-         <p style={{fontFamily: 'Roboto'}}>Author : { post  && post?.user?.username?.toUpperCase()}</p>
+         <p style={{fontFamily: 'Roboto'}}>Author : { post  && post?.userId}</p>
          <div style={{display: 'flex' , gap: '20px', fontFamily: 'Roboto'}} className="categories">
           {
             post?.categories?.map((category:any, index) => (
-              <p  style={{background: 'rgb(4, 179, 170)', width: '100px' , display: 'flex', justifyContent: 'center', color: '#fff', height: '30px', alignItems: 'center' }} key={index}>{category.categoryName}</p>
+              <p  style={{background: 'rgb(4, 179, 170)', width: '100px' , display: 'flex', justifyContent: 'center', color: '#fff', height: '30px', alignItems: 'center' }} key={index}>{category}</p>
             ))
           }
          </div>

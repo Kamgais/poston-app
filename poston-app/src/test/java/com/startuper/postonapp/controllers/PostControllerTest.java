@@ -1,6 +1,5 @@
 package com.startuper.postonapp.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.startuper.postonapp.controller.PostController;
 import com.startuper.postonapp.dtos.CategoryDto;
@@ -22,16 +21,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import javax.xml.transform.Result;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
@@ -107,8 +104,8 @@ public class PostControllerTest {
                 .title("My Post")
                 .content("My interesting Post")
                 .dateCreated(new Date())
-                .user(userDto)
-                .categories(categoriesDTO)
+                .userId(userDto.getId())
+                .categories(categoriesDTO.stream().map(e -> e.getCategoryName()).collect(Collectors.toList()))
                 .build();
 
     }
@@ -168,8 +165,8 @@ public class PostControllerTest {
                 .title(postDto.getTitle())
                 .content(post.getContent())
                 .dateCreated(new Date())
-                .user(userDto)
-                .categories(categoriesDTO)
+                .userId(userDto.getId())
+                .categories(categoriesDTO.stream().map(e -> e.getCategoryName()).collect(Collectors.toList()))
                 .build();
         updatedPost.setTitle("My New Post");
         when(postService.updatePost(Mockito.anyLong(),Mockito.any(PostDto.class))).thenReturn(updatedPost);

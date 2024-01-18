@@ -51,7 +51,7 @@ public class AuthServiceTest {
                 .build();
 
         when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
-        when(userRepository.findUserByEmailAddress(Mockito.any(String.class))).thenReturn(null);
+        when(userRepository.findUserByEmailAddress(Mockito.any(String.class))).thenReturn(Optional.empty());
         when(mapper.toEntity(Mockito.any(UserDto.class))).thenReturn(user);
         when(mapper.toDto(Mockito.any(User.class))).thenReturn(userDto);
         UserDto savedUser = authService.createAUser(userDto);
@@ -74,7 +74,8 @@ public class AuthServiceTest {
                 .password("poston1!")
                 .build();
 
-        when(userRepository.findUserByEmailAddress(Mockito.any(String.class))).thenReturn(Optional.of(user));
+        Optional<User> op = Optional.of(user);
+        when(userRepository.findUserByEmailAddress(Mockito.any(String.class))).thenReturn(op);
         when(mapper.toDto(Mockito.any(User.class))).thenReturn(userDto);
         UserDto loggedUser = authService.loginAUser(userDto);
         Assertions.assertThat(loggedUser).isNotNull();

@@ -72,7 +72,7 @@ const Navbar:FunctionComponent = () => {
                 {notifs.filter((e:any) => !e.read && e.userId !== user.id ).length}
                </div>}
                 <div onClick={handleBanner} className="user-pic">
-                  <img  src={user.image ? `data:image/jpeg;base64,${user?.image?.picByte}` : imageUrl} alt="" />
+                  <img  src={user.profilePic ? user?.profilePic : imageUrl} alt="" />
                   {bannerOpened && <Banner/>}
                 </div>
                 <p style={{fontSize: '20px', fontFamily: 'Roboto'}}>{user.username}</p>
