@@ -85,7 +85,8 @@ jobs:
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
           # Commands to execute on the EC2 instance
-          sudo docker ps -q | xargs docker stop
-          sudo docker ps -aq | xargs docker rm
+          sudo docker ps -q | xargs sudo docker stop
+          sudo docker ps -aq | xargs sudo docker rm
+          sudo docker ps -aq | xargs sudo docker rm
           cd docs
           sudo docker-compose up -d
