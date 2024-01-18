@@ -72,12 +72,14 @@ jobs:
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
           # Commands to remove Docker images
+          sudo docker ps -q | xargs sudo docker stop
+          sudo docker ps -aq | xargs sudo docker rm
           sudo docker images -q | xargs sudo docker rmi -f
 
     - name: Install SSH client
       run: sudo apt-get install -y openssh-client
 
-    - name: Connect to EC2 instance
+    - name: Pull Images to EC2 instance
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.EC2_HOST }}
@@ -85,8 +87,5 @@ jobs:
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
           # Commands to execute on the EC2 instance
-          sudo docker ps -q | xargs sudo docker stop
-          sudo docker ps -aq | xargs sudo docker rm
-          sudo docker ps -aq | xargs sudo docker rm
           cd docs
           sudo docker-compose up -d
