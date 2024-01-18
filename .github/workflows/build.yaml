@@ -37,7 +37,7 @@ jobs:
       run: |
         echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password "${{ secrets.DOCKER_HUB_PASSWORD}}" docker.io
         docker build poston-app/ --file poston-app/Dockerfile --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/poston-api:latest
-        docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:latest
+        docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY_BACKEND }}:latest
 
     - name: Push frontend image
       run: |
