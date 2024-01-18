@@ -72,7 +72,7 @@ jobs:
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
           # Commands to remove Docker images
-          docker images -q | xargs docker rmi -f
+          sudo docker images -q | xargs sudo docker rmi -f
 
     - name: Install SSH client
       run: sudo apt-get install -y openssh-client
@@ -85,7 +85,7 @@ jobs:
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
           # Commands to execute on the EC2 instance
-          docker ps -q | xargs docker stop
-          docker ps -aq | xargs docker rm
+          sudo docker ps -q | xargs docker stop
+          sudo docker ps -aq | xargs docker rm
           cd docs
-          docker-compose up -d
+          sudo docker-compose up -d
