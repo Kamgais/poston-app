@@ -38,4 +38,5 @@ jobs:
         run: |
           pwd
           cd ..
+          ls -la
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Kamgais_poston-app
