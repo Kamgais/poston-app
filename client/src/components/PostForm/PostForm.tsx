@@ -59,15 +59,15 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
         const response = await TagService.getTagsByPostId(body?.id!);
        // console.log(response)
         setTags(response)
-        
+
     }
 
     useEffect(()=> {
      fetchCategories().then((c) => {
-     
+
      });
 
-    
+
 
    body && fetchTags()
 
@@ -82,7 +82,7 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
     categories: body ? body.categories : [],
     content: body? body.content : ''
 })
-    
+
      },[body])
 
 
@@ -93,8 +93,8 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
            // console.log(newSelectedCategories)
             setSelectedCategories(newSelectedCategories!)
 
-} 
-        
+}
+
        })
 
 
@@ -103,7 +103,7 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
         let exist : boolean = false;
         let categoryIndex: number;
         selectedCategories?.forEach((category: string, index: number) => {
-            if(e.target.name === category) {
+            if(e.currentTarget.name === category) {
                 exist = true;
                 categoryIndex = index;
             }
@@ -120,7 +120,7 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
             setSelectedCategories(newArrayCategories);
          //   console.log(selectedCategories)
         }
-       
+
     }
 
 
@@ -136,7 +136,7 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
             await uploadImageAndCreatePostAndSaveTags()
             handleNotification('success', validated.msg);
             navigate('/posts')
-           
+
         }
       }
 
@@ -145,11 +145,11 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
 
        if(selectedCategories.length === 0) {
         return {valid: false, msg: 'you must select at least one category '}
-       } 
+       }
 
        if(post?.title?.trim().length === 0) {
         return {valid: false, msg: 'you must give a title' }
-       } 
+       }
 
        if(post?.content?.trim().length === 0) {
         return {valid: false , msg: 'you must write a content'}
@@ -165,7 +165,7 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
        }
       if(type === 'CREATE') {
         return {valid: true , msg: 'post created'}
-      }  
+      }
       else {
         return {valid: true , msg: 'post updated'}
       }
@@ -176,7 +176,7 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement| HTMLTextAreaElement>) => {
        const newPost = {...post, [e.target.name]: e.target.value};
-       setPost(newPost); 
+       setPost(newPost);
        console.log(post);
     }
 
@@ -201,20 +201,20 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
 
          if(body && file) {
           newPost = {...post, categories: selectedCategories, postImage: newImage!, id: body.id}
-            
+
         }
 
         if(body && !file) {
-           newPost = {...post , categories: selectedCategories, postImage: body.postImage, id: body.id} 
+           newPost = {...post , categories: selectedCategories, postImage: body.postImage, id: body.id}
         }
 
         if(!body && file) {
-            newPost = {...post , categories: selectedCategories, postImage: newImage}  
+            newPost = {...post , categories: selectedCategories, postImage: newImage}
         }
 
 
         if(body) {
-          const postResponse = await PostService.updatePost(newPost, body.id!) ; 
+          const postResponse = await PostService.updatePost(newPost, body.id!) ;
 
           const newTags = [...tags!];
             newTags.forEach((tag) => {
@@ -236,16 +236,19 @@ const PostForm: FunctionComponent<Props> = ({type, body}) => {
             const tagsResponse = await TagService.createTags(newTags);
 
         }
-            
-           
-            
 
-            
 
-            
 
-            
-            
+
+
+
+
+
+
+
+
+
+
     }
 
 return (
@@ -257,11 +260,11 @@ return (
             categories?.map((category:any, index: React.Key | null | undefined) => (
                 <div key={index}>
                 { type === 'UPDATE' &&  <input onChange={(e) => onCategoriesArray(e)} name={category} type="checkbox"  checked= {selectedCategories.indexOf(category.categoryName) > -1}/>}
-                
-                {type === 'CREATE' && <input type= "checkbox" onChange={(e) => onCategoriesArray(e)} name={category} />}
-                
+
+                {type === 'CREATE' && <input type= "checkbox" onChange={(e) => onCategoriesArray(e)} name={category.categoryName} />}
+
                 <label className='categoryLabel'>{category.categoryName}</label>
-                
+
                 </div>
             ))
         }
@@ -284,8 +287,8 @@ return (
        </div>
 
        <div className="createPostActions">
-      
-       { usernameSearched.length > 0  && <UserList username={usernameSearched}  setTags={setTags} setUsername={setUsernameSearch}  tags={tags}/>} 
+
+       { usernameSearched.length > 0  && <UserList username={usernameSearched}  setTags={setTags} setUsername={setUsernameSearch}  tags={tags}/>}
        <TagComponent username={usernameSearched} setUsername={setUsernameSearch}  tags={tags}/>
        <button type='submit' >{type}</button>
        </div>
