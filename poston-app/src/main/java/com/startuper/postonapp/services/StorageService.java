@@ -35,8 +35,8 @@ public class StorageService {
         s3Client.putObject(new PutObjectRequest(bucketName, fileName,fileObj));
 
         // Set the object ACL to public-read
-       // s3Client.setObjectAcl(bucketName,fileName, CannedAccessControlList.PublicRead);
-       // s3Client.setBucketAcl(bucketName, CannedAccessControlList.PublicRead);
+        // s3Client.setObjectAcl(bucketName,fileName, CannedAccessControlList.PublicRead);
+        // s3Client.setBucketAcl(bucketName, CannedAccessControlList.PublicRead);
         fileObj.delete();
         String uri = generatePublicUrl(bucketName,fileName);
 
@@ -48,8 +48,8 @@ public class StorageService {
         File convertedFile = new File(file.getOriginalFilename());
         try(FileOutputStream fos = new FileOutputStream(convertedFile)) {
             fos.write(file.getBytes());
-      } catch (IOException e) {
-           log.error("Error converting mutipartfile to file", e);
+        } catch (IOException e) {
+            log.error("Error converting mutipartfile to file", e);
         }
         return convertedFile;
     }

@@ -1,0 +1,91 @@
+name: Maven Build + Docker build and DockerHub push
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+        cache: maven
+
+    - name: Build backend with Maven
+      run: |
+        cd poston-app
+        mvn clean -B package
+
+    - name: Build frontend
+      run: |
+        # Your commands to build the frontend Docker image
+        cd client
+        docker build -t docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/postonui:latest .
+
+    - name: Push backend image
+      run: |
+        echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password "${{ secrets.DOCKER_HUB_PASSWORD}}" docker.io
+        docker build poston-app/ --file poston-app/Dockerfile --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/poston-api:latest
+        docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY_BACKEND }}:latest
+
+    - name: Push frontend image
+      run: |
+        echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password "${{ secrets.DOCKER_HUB_PASSWORD}}" docker.io
+        docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/postonui:latest
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+        cache: maven
+
+    - name: Run Maven tests
+      run: |
+        cd poston-app
+        mvn test
+
+    - name: Remove Docker images on EC2 instance
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        script: |
+          # Commands to remove Docker images
+          sudo docker ps -q | xargs sudo docker stop
+          sudo docker ps -aq | xargs sudo docker rm
+          sudo docker images -q | xargs sudo docker rmi -f
+
+    - name: Install SSH client
+      run: sudo apt-get install -y openssh-client
+
+    - name: Pull Images to EC2 instance
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        script: |
+          # Commands to execute on the EC2 instance
+          cd docs
+          sudo docker-compose up -d
