@@ -64,7 +64,7 @@ public class PostMapper implements  Mapper<Post, PostDto>{
 
     @Override
     public PostDto toDto(Post post) {
-        List<Category> categories = post.getCategories();
+
 
        if(post == null) {
            return null;

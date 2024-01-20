@@ -4,7 +4,7 @@ package com.startuper.postonapp.dtos;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
-import java.util.List;
+
 
 
 @Getter

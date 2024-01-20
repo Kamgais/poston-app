@@ -8,10 +8,9 @@ import com.startuper.postonapp.mappers.CategoryMapper;
 import com.startuper.postonapp.mappers.PostMapper;
 import com.startuper.postonapp.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,7 +107,7 @@ public class PostService {
     }
 
     public void deletePost(Long id) {
-        String message;
+
         Optional<Post> post = postRepository.findById(id);
         if (post.isPresent()) {
             List<Notification> notifs = notificationRepository.findAllByPostId(post.get().getId());
@@ -125,7 +124,7 @@ public class PostService {
 
 
     public ResponseEntity<String> likePost(Long likeCounter, Long id) {
-        String message;
+
         Optional<Post> post = postRepository.findById(id);
         if (post.isPresent()) {
             post.get().setLikeCount(post.get().getLikeCount() + likeCounter);
@@ -140,7 +139,7 @@ public class PostService {
 
 
     public ResponseEntity<String> unLikePost(Long unlikeCounter, Long id) {
-        String message;
+
         Optional<Post> post = postRepository.findById(id);
 
         if (post.isPresent()) {

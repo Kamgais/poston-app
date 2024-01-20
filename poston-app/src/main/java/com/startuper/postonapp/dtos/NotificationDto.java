@@ -1,7 +1,7 @@
 package com.startuper.postonapp.dtos;
 
 
-import com.startuper.postonapp.entities.User;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 

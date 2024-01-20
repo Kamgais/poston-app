@@ -1,9 +1,9 @@
 package com.startuper.postonapp.repositories;
 
 
-import com.startuper.postonapp.entities.Post;
+
 import com.startuper.postonapp.entities.User;
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.RepositoryDefinition;

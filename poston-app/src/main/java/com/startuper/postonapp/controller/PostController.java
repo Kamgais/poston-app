@@ -2,7 +2,6 @@ package com.startuper.postonapp.controller;
 
 
 import com.startuper.postonapp.dtos.PostDto;
-import com.startuper.postonapp.entities.Post;
 import com.startuper.postonapp.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

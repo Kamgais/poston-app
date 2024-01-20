@@ -2,7 +2,6 @@ package com.startuper.postonapp.controller;
 
 
 import com.startuper.postonapp.dtos.UserDto;
-import com.startuper.postonapp.entities.User;
 import com.startuper.postonapp.services.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

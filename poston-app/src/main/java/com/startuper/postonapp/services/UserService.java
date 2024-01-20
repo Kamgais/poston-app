@@ -44,7 +44,7 @@ public class UserService {
 
     public UserDto getUserById(Long id) {
         Optional<User> user = userRepository.findById(id);
-        return (userMapper.toDto(user.get()));
+        return userMapper.toDto(user.get());
     }
 
     public List<UserDto> getAllUsers() {
@@ -101,9 +101,9 @@ public class UserService {
            tagRepository.deleteAll(tags);
            postRepository.deleteAll(posts);
 
-           if(user.get().getProfilePic() != null) {
+          // if(user.get().getProfilePic() != null) {
              // TODO: delete from aws s3 bucket
-           }
+       //    }
 
            userRepository.deleteById(id);
 

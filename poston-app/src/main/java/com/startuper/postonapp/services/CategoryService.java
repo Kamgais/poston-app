@@ -7,7 +7,6 @@ import com.startuper.postonapp.entities.Category;
 import com.startuper.postonapp.mappers.CategoryMapper;
 import com.startuper.postonapp.repositories.ICategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
