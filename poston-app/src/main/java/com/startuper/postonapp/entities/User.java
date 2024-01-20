@@ -34,7 +34,7 @@ public class User {
 
 
 
-    @Column(nullable = true)
+    @Column
     private String profilePic;
 
 

@@ -100,11 +100,6 @@ public class UserService {
            commentRepository.deleteAll(comments);
            tagRepository.deleteAll(tags);
            postRepository.deleteAll(posts);
-
-          // if(user.get().getProfilePic() != null) {
-             // TODO: delete from aws s3 bucket
-       //    }
-
            userRepository.deleteById(id);
 
             return "account deleted";
