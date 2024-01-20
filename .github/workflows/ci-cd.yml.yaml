@@ -1,10 +1,10 @@
 name: Maven Build + Docker build and DockerHub push
 
 on:
-  #push:
-   # branches: [ main ]
- # pull_request:
-   # branches: [ main ]
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
