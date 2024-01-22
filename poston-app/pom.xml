@@ -89,7 +89,7 @@
             <artifactId>aws-java-sdk-core</artifactId>
             <version>1.12.604</version>
         </dependency>
-        
+
     </dependencies>
 
     <build>
