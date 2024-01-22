@@ -67,7 +67,7 @@ jobs:
     - name: Remove Docker images on EC2 backend instance
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.EC2_FRONTEND_HOST }}
+        host: ${{ secrets.EC2_BACKEND_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
