@@ -1,0 +1,163 @@
+@import '../../../styles/fonts';
+@import '../../../styles/colors';
+
+.singlePostContainer{
+    img{
+        width: 100px;
+    }
+    margin: 0 auto;
+    margin-top: 100px;
+    width: 80vw;
+
+
+
+    .singlePostImage{
+        width: 100%;
+        position: relative;
+
+        img{
+            width: 100%;
+            height: 650px;
+            object-fit: cover;
+        }
+
+
+
+        .singlePostContainerActions{
+            position: absolute;
+            top: 3%;
+            right: 2%;
+            display: flex;
+            gap: 10px;
+
+
+            i{
+                color: $base-white-color;
+                background-color: black;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: all 0.4s ease-out;
+
+
+                &:hover {
+                    background-color: $base-white-color;
+                    color: black;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+
+    .singlePostInfos{
+        
+        margin: 20px;
+
+        h1{
+            font-size: 70px;
+            font-family: $family;
+            text-align: center;
+        }
+
+
+        .postContent{
+            font-size: 20px;
+            margin: 30px;
+            font-family: $family;
+        }
+
+
+        .postActions{
+            display: flex;
+            gap: 10px;
+            height: min-content;
+            align-items: center;
+            justify-content: start;
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+
+            .like, .unlike, .comment {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+                font-size: 20px;
+                font-family: $family;
+
+
+                &:hover{
+                    cursor: pointer;
+                }
+
+
+            }
+
+            img{
+                width: 50px;
+                
+                
+            }
+        }
+    }
+
+
+
+    .singlePostComments{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+
+        .comments{
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+        }
+
+
+        input {
+            width: 80%;
+            height: 50px;
+            margin: 20px;
+            padding: 0 10px;
+            font-size: 20px;
+            outline: none;
+            border: none;
+            border-bottom: 3px solid $button-color;
+            }
+
+
+            button{
+                width: 40%;
+                height: 40px;
+                border: none;
+                font-size: 20px;
+                background-color: $button-color;
+                color: $base-white-color;
+                transition: all 0.4s ease-out;
+            &:hover{
+                    background: $base-white-color;
+                    color: $button-color;
+                    border: 3px solid;
+                    font-size: 16px;
+                    cursor: pointer;
+                }
+            }
+
+
+           
+    }
+
+
+
+    
+
+
+   
+}

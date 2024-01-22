@@ -1,0 +1,14 @@
+.postList {
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  margin: 90px auto 0;
+}
+
+.postListContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  min-height: 100vh;
+}/*# sourceMappingURL=posts.css.map */

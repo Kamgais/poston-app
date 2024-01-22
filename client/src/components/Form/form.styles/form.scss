@@ -1,0 +1,100 @@
+@import '../../../styles/fonts';
+@import '../../../styles/colors';
+@import '../../../styles/breakpoints';
+.formContainer{
+
+    @include xs {
+    flex-direction: column;
+    }
+
+    @include sm {
+        flex-direction: row;
+    }
+
+
+    width: 90%;
+    background: #ffff;
+    padding: 30px;
+    max-width: 900px;
+    min-height: max-content;
+    display: flex;
+    align-items: center;
+    margin-top: 100px;
+    
+
+    
+
+
+      .formContainerForm{
+        margin: 30px 0;
+        
+      }
+
+      .formContainerIcon{
+        width: 50%;
+      }
+
+    .formContainerIcon img {
+     font-size: 150px;
+
+     @include xs {
+        display: none;
+     }
+
+     @include sm {
+        width: 100%;
+        display: block;
+     }
+
+     
+
+    }
+
+
+
+    .formContainerForm{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+
+
+
+        input, button{
+            width: 80%;
+            height: 50px;
+            font-family: $family;
+            border: none;
+
+        }
+
+        input{
+            padding-left: 10px;
+            outline: none;
+            border: 1px solid rgb(189, 187, 187);
+        }
+
+        button{
+            background: $button-color;
+            color: $base-white-color;
+            font-weight: bold;
+            font-size: 20px;
+            transition: all 0.4s ease-out;
+
+
+            &:hover{
+                background-color: $base-white-color;
+                color: $button-color;
+                border: 3px solid;
+                font-size: 15px;
+                cursor: pointer;
+            }
+        }
+
+
+        
+    }
+
+
+}

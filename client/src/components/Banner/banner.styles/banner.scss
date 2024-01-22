@@ -1,0 +1,46 @@
+@import '../../../styles/fonts';
+@import '../../../styles/colors';
+
+.bannerContainer{
+    position: absolute;
+    bottom: -450%;
+    right: 1%;
+    width: 8%;
+    min-width: 200px;
+    padding: 10px 0px;
+    background: rgb(255, 255, 255);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 5px;
+
+
+
+
+
+    .bannerMyAccount,.bannerCreatePost,.bannerMyPost{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 5px;
+        margin-bottom: 10px;
+        width: 100%;
+
+
+        &:hover{
+            background: $button-color;
+        }
+
+
+        i{
+            font-size: 25px;
+            
+           
+        }
+
+
+        p{
+            font-family: $family;
+        }
+
+    }
+}
