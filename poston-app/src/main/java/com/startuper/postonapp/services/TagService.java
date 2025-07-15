@@ -1,13 +1,13 @@
 package com.startuper.postonapp.services;
 
-
 import com.startuper.postonapp.dtos.TagDto;
 import com.startuper.postonapp.entities.Tag;
 import com.startuper.postonapp.mappers.TagMapper;
 import com.startuper.postonapp.repositories.ITagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CacheEvict;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,35 +21,33 @@ public class TagService {
     @Autowired
     private TagMapper tagMapper;
 
-    public ResponseEntity<TagDto> saveTag(TagDto tagDto) {
-
+    @CacheEvict(value = "tagsByPost", key = "#tagDto.postId")
+    public TagDto saveTag(TagDto tagDto) {
         Tag tag = tagRepository.save(tagMapper.toEntity(tagDto));
-
-        return ResponseEntity.ok().body(tagMapper.toDto(tag));
-
-
+        return tagMapper.toDto(tag);
     }
 
-
-    public ResponseEntity<List<TagDto>> saveTags(List<TagDto> tagDtos) {
-        List<Tag> tags = tagDtos.stream().map(e->tagMapper.toEntity(e)).collect(Collectors.toList());
-          tagRepository.saveAll(tags);
-        return ResponseEntity.ok().body(tags.stream().map(e->tagMapper.toDto(e)).collect(Collectors.toList()));
+    @CacheEvict(value = "tagsByPost", allEntries = true)
+    public List<TagDto> saveTags(List<TagDto> tagDtos) {
+        List<Tag> tags = tagDtos.stream()
+                .map(tagMapper::toEntity)
+                .collect(Collectors.toList());
+        tagRepository.saveAll(tags);
+        return tags.stream().map(tagMapper::toDto).collect(Collectors.toList());
     }
 
-
-
-    public ResponseEntity<List<TagDto>> updateTags(List<TagDto> tagDtos, Long id) {
+    @CacheEvict(value = "tagsByPost", key = "#id")
+    public List<TagDto> updateTags(List<TagDto> tagDtos, Long id) {
         List<Tag> tags = tagRepository.findTagsByPostId(id);
-        tags.stream().forEach(e-> tagRepository.deleteById(e.getId()));
-        List<Tag> newTags = tagDtos.stream().map(e->tagMapper.toEntity(e)).collect(Collectors.toList());
-       return ResponseEntity.ok().body(newTags.stream().map(e-> tagMapper.toDto(e)).collect(Collectors.toList()));
+        tags.forEach(tag -> tagRepository.deleteById(tag.getId()));
+        List<Tag> newTags = tagDtos.stream().map(tagMapper::toEntity).collect(Collectors.toList());
+        tagRepository.saveAll(newTags);
+        return newTags.stream().map(tagMapper::toDto).collect(Collectors.toList());
     }
 
-
-    public ResponseEntity<List<TagDto>> getTagByPostId(Long id) {
-       List<Tag> tags = tagRepository.findTagsByPostId(id);
-
-       return ResponseEntity.ok().body(tags.stream().map(e-> tagMapper.toDto(e)).collect(Collectors.toList()));
+    @Cacheable(value = "tagsByPost", key = "#id")
+    public List<TagDto> getTagByPostId(Long id) {
+        List<Tag> tags = tagRepository.findTagsByPostId(id);
+        return tags.stream().map(tagMapper::toDto).collect(Collectors.toList());
     }
 }

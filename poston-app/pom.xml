@@ -89,6 +89,14 @@
             <artifactId>aws-java-sdk-core</artifactId>
             <version>1.12.604</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
 
     </dependencies>
 
@@ -191,7 +199,7 @@
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>10.12.4</version>
+                        <version>10.24.0</version>
                     </dependency>
                 </dependencies>
 

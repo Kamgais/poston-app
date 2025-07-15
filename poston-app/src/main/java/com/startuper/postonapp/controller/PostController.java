@@ -1,6 +1,5 @@
 package com.startuper.postonapp.controller;
 
-
 import com.startuper.postonapp.dtos.PostDto;
 import com.startuper.postonapp.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,63 +17,84 @@ import java.util.List;
 public class PostController {
 
     @Autowired
-    PostService postService;
+    private PostService postService;
 
     @GetMapping("")
     public ResponseEntity<List<PostDto>> findAllPost(@RequestParam(required = false) String title) {
-        if(title != null) {
-          return postService.getPostByTitle(title);
+        if (title != null) {
+            List<PostDto> posts = postService.getPostByTitle(title);
+            return ResponseEntity.ok(posts);
         } else {
-            return ResponseEntity.ok().body(postService.getAllPost());
+            return ResponseEntity.ok(postService.getAllPost());
         }
-
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PostDto> findPostById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(postService.getPostById(id));
+        PostDto postDto = postService.getPostById(id);
+        if (postDto != null) {
+            return ResponseEntity.ok(postDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PostDto> updatePost(@PathVariable("id") Long id , @RequestBody PostDto postDto) {
-        return ResponseEntity.ok().body(postService.updatePost(id,postDto));
+    public ResponseEntity<PostDto> updatePost(@PathVariable("id") Long id, @RequestBody PostDto postDto) {
+        PostDto updated = postService.updatePost(id, postDto);
+        if (updated != null) {
+            return ResponseEntity.ok(updated);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-
     @GetMapping("/like/{id}/{value}")
-    public ResponseEntity<String> likePost (@PathVariable("value") Long value, @PathVariable("id") Long id) {
-        return postService.likePost(value, id);
+    public ResponseEntity<String> likePost(@PathVariable("value") Long value, @PathVariable("id") Long id) {
+        try {
+            String message = postService.likePost(value, id);
+            return ResponseEntity.ok(message);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping("/unlike/{id}/{value}")
-    public ResponseEntity<String> unLikePost (@PathVariable("value") Long value, @PathVariable("id") Long id) {
-        return postService.unLikePost(value, id);
+    public ResponseEntity<String> unLikePost(@PathVariable("value") Long value, @PathVariable("id") Long id) {
+        try {
+            String message = postService.unLikePost(value, id);
+            return ResponseEntity.ok(message);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping("/categories")
     public ResponseEntity<List<PostDto>> getPostByCategoryName(@RequestParam String categoryName) {
-        return postService.getPostByCategoryName(categoryName);
+        List<PostDto> posts = postService.getPostByCategoryName(categoryName);
+        return ResponseEntity.ok(posts);
     }
-
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
-
         try {
-            return ResponseEntity.created(new URI("/api/posts")).body(postService.addPost(postDto));
+            PostDto created = postService.addPost(postDto);
+            return ResponseEntity.created(new URI("/api/posts/" + created.getId())).body(created);
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @DeleteMapping("/{id}")
-    public void deletePost(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deletePost(@PathVariable("id") Long id) {
         postService.deletePost(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/user/{id}")
     public ResponseEntity<List<PostDto>> getPostsByUserId(@PathVariable("id") Long id) {
-        return postService.getPostsByUserId(id);
+        List<PostDto> posts = postService.getPostsByUserId(id);
+        return ResponseEntity.ok(posts);
     }
 }

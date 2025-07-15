@@ -1,6 +1,5 @@
 package com.startuper.postonapp.controller;
 
-
 import com.startuper.postonapp.dtos.NotificationDto;
 import com.startuper.postonapp.services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +18,23 @@ public class NotificationController {
 
     @PostMapping("")
     public ResponseEntity<NotificationDto> createNotification(@RequestBody NotificationDto notificationDto) {
-        return notificationService.createNotification(notificationDto);
+        NotificationDto created = notificationService.createNotification(notificationDto);
+        return ResponseEntity.ok(created);
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<List<NotificationDto>> findNotifsByUserId(@PathVariable("id") Long userId) {
-        return notificationService.getNotifsByUserId(userId);
+        List<NotificationDto> notifications = notificationService.getNotifsByUserId(userId);
+        return ResponseEntity.ok(notifications);
     }
 
     @GetMapping("/read/{id}")
     public ResponseEntity<String> readNotification(@PathVariable("id") Long id) {
-        return notificationService.readNotification(id);
+        try {
+            String result = notificationService.readNotification(id);
+            return ResponseEntity.ok(result);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

@@ -5,11 +5,13 @@ import com.startuper.postonapp.dtos.UserDto;
 import com.startuper.postonapp.entities.User;
 import com.startuper.postonapp.mappers.UserMapper;
 import com.startuper.postonapp.repositories.IUserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class AuthService {
 
@@ -42,7 +44,7 @@ public class AuthService {
             userRepository.save(newUser);
 
         } catch (Error error) {
-            System.out.println(error);
+            log.error(String.valueOf(error));
         }
         return  userMapper.toDto(newUser);
     }
@@ -52,11 +54,7 @@ public class AuthService {
      */
     public boolean emailExist(String email) {
         Optional<User> user = userRepository.findUserByEmailAddress(email);
-        if(user.isPresent()) {
-            return true;
-        } else {
-            return false;
-        }
+        return user.isPresent();
 
     }
 

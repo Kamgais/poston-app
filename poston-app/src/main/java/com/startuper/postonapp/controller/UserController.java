@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("")
     public ResponseEntity<List<UserDto>> getUsersByUsername(@RequestParam("name") String name) {
-       return userService.getUsersByUsername(name);
+       return ResponseEntity.ok().body(userService.getUsersByUsername(name));
     }
 
     @GetMapping("/{id}")
